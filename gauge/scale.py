@@ -17,8 +17,9 @@ class Object:
         self.rotation = 0.0
         self.span = 2 * math.pi
         self.range = (0.0, 1.0)
-        self.min_ticks = 10
+        self.min_ticks = 1
         self.maj_ticks = 10
+        self.maj_ticks_start = 0
         self.tick_len = 0.2
         self.label_radius = 0.7
         self.color = (0.0, 0.0, 0.0, 1.0)

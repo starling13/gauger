@@ -38,6 +38,7 @@ s.rotation = -math.pi / 2.0 - 0.2 - start_angle
 s.radius = 0.63
 s.span = end_angle - start_angle
 s.range = (15.0, 215)
+s.min_ticks = 3
 s.maj_ticks = 10
 s.label_radius = 0.8
 s.tick_len = -0.08
@@ -53,12 +54,14 @@ e.export(o, "/tmp/2.svg")
 
 o = gauge.round_gauge.Object()
 s = gauge.scale.Object()
-s.rotation = 0.0
-s.radius = 0.8
+s.rotation = math.pi / 2.0
+s.radius = 0.9
 s.span = math.pi * 2.0
 s.range = (0.0, 12.0)
+s.min_ticks = 4
 s.maj_ticks = 12
-s.label_radius = 0.6
+s.maj_ticks_start = 1
+s.label_radius = 0.75
 s.tick_len = 0.08
 s.maj_prec = (2, 0)
 s.maj_shift = (-0.05, 0.03)

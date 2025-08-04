@@ -50,7 +50,7 @@ class Object:
             maj_span = s.range[1] - s.range[0]
             maj_span_rot = s.span / maj_span
             maj_step = maj_span / (s.maj_ticks)
-            maj_step_rot = maj_step * maj_span_rot
+            maj_step_rot = s.span / s.maj_ticks
 
             context.rotate(s.rotation)
             context.set_line_width(s.line)
@@ -74,6 +74,13 @@ class Object:
                 context.line_to(s.radius - s.tick_len, 0.0)
                 context.stroke()
 
+                if maj_span - pos >= maj_step:
+                    for i in range(0, s.min_ticks):
+                        context.rotate(-maj_step_rot / (s.min_ticks + 1))
+                        context.move_to(s.radius, 0.0)
+                        context.line_to(s.radius - s.tick_len / 2.0, 0.0)
+                        context.stroke()
+
                 context.restore()
 
                 pos += maj_step
@@ -85,7 +92,12 @@ class Object:
             context.move_to(s.label.position[0], s.label.position[1])
             context.scale(1.0, -1.0)
             context.show_text(s.label.text)
+            i = 0
             while pos <= maj_span:
+                i += 1
+                if i <= s.maj_ticks_start:
+                    pos += maj_step
+                    continue
                 val = s.range[0] + pos
                 val_str = f"{val:{s.maj_prec[0]}.{s.maj_prec[1]}f}"
                 angle = -maj_span_rot * pos + s.rotation
