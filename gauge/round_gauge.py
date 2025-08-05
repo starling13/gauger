@@ -13,4 +13,5 @@ class Object:
         self.border_width: float = 0.02
         self.radius: float = 0.98
         self.scales: list[gauge.scale.Object] = []
+        self.size: tuple[int, int] = (800, 800)
         self.label: gauge.Label = gauge.Label()
