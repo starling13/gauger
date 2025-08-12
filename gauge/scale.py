@@ -37,19 +37,26 @@ class Object:
         self.min_ticks: list[gauge.Ticks] = []
         # Major ticks count
         self.maj_ticks = gauge.Ticks()
+        # Font for labels
         self.font = gauge.Font()
         #
-        self.maj_prec = (2, 1)
+        self.maj_prec = (1, 2)
         #
         self.maj_shift = (0.0, 0.0)
-        #
-        self.maj_ticks_start = 0
         #
         self.label_radius = 0.7
         #
         self.color = (0.0, 0.0, 0.0, 1.0)
         #
         self.label: gauge.Label = gauge.Label()
+
+    def from_dict(self, data) -> None:
+        pass
+
+    def set_range(self, new_val: tuple[float, float]) -> None:
+        self.range = new_val
+        self.maj_ticks.range = new_val
+        self.maj_ticks.label_range = new_val
 
     def get_angle(self, val: float) -> float:
         # Clamp value to the scale range

@@ -8,3 +8,5 @@ gauge:
     text: "Test gauge"
     position: [-0.3, -0.2]
     rotation: 0.0
+  scales:
+    scale1: null

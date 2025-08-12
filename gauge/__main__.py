@@ -4,12 +4,26 @@ Created on 1 авг. 2025 г.
 @author: skvortsov
 """
 
+"""
 import math
+"""
 
 import gauge.exporter
 import gauge.round_gauge
 import gauge.scale
 
+gauge1 = gauge.round_gauge.Object()
+
+scale1 = gauge.scale.Object()
+scale1.set_range((0.0, 10.0))
+scale1.maj_ticks.count = 9
+gauge1.add_scale(scale1)
+
+exporter = gauge.exporter.Object()
+exporter.export(gauge1, "/tmp/gauge1.svg")
+
+
+"""
 o = gauge.round_gauge.Object()
 o.label.text = "Circular logarithmic ruler"
 o.label.position = (-0.45, -0.2)
@@ -208,8 +222,6 @@ o.scales.append(s)
 
 e = gauge.exporter.Object()
 e.export(o, "/tmp/2.svg")
-
-"""
 
 o = gauge.round_gauge.Object()
 

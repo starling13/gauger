@@ -16,32 +16,48 @@ class Object:
         self.size: tuple[int, int] = (800, 800)
         self.label: gauge.Label = gauge.Label()
 
+    def add_scale(self, so: gauge.scale.Object) -> None:
+        self.scales.append(so)
+
     def from_dict(self, data) -> None:
+        if "gauge" not in data:
+            raise Exception("No 'gauge' object")
+
         gauge_o = data.get("gauge")
         if gauge_o is None:
-            raise Exception("No 'gauge' object")
+            print("Empty gauge object")
+            return
 
         size_o = gauge_o.get("size")
         if size_o is None:
-            raise Exception("No 'size' field in 'gauge' object")
-
-        if (
-            (not isinstance(size_o, list))
-            or len(size_o) != 2
-            or (not all(isinstance(x, int) for x in size_o))
-        ):
-            raise Exception(
-                "The 'size' field in 'gauge' object is not a tuple of 2 integer values"
-            )
-
-        self.size = (size_o[0], size_o[1])
+            print("No 'size' field in 'gauge' object")
+        else:
+            if (
+                (not isinstance(size_o, list))
+                or len(size_o) != 2
+                or (not all(isinstance(x, int) for x in size_o))
+            ):
+                raise Exception(
+                    "The 'size' field in 'gauge' object is not a tuple of 2 integer values"
+                )
+            self.size = (size_o[0], size_o[1])
 
         radius_o = gauge_o.get("radius")
         if radius_o is None:
-            raise Exception("No 'radius' field in 'gauge' object")
+            print("No 'radius' field in 'gauge' object")
+        else:
+            if not isinstance(radius_o, float):
+                raise Exception(
+                    "The 'radius' field in 'gauge' object is not float value"
+                )
+            self.radius = radius_o
 
-        if not isinstance(radius_o, float):
-            raise Exception(
-                "The 'radius' field in 'gauge' object is not float value"
-            )
-        self.radius = radius_o
+        scales_o = gauge_o.get("scales")
+        if scales_o is None:
+            print("No 'scales' field in 'gauge' object")
+        else:
+            for s, v in scales_o.items():
+                scale_o = gauge.scale.Object()
+                if v is not None:
+                    scale_o.from_dict(v)
+                self.add_scale(scale_o)

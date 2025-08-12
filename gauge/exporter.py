@@ -61,7 +61,7 @@ class Object:
 
             pos += maj_step
 
-    def _draw_logarithmic_scale(self, s, context) -> None:
+    def _draw_scale(self, s, context) -> None:
 
         context.set_font_size(s.font.size)
         context.set_line_width(s.pen.thickness)
@@ -107,6 +107,8 @@ class Object:
                 context.scale(1.0, -1.0)
                 context.move_to(s.maj_shift[0], -s.maj_shift[1])
                 val_str = f"{pos:{s.maj_prec[0]}.{s.maj_prec[1]}g}"
+                ext = context.text_extents(val_str)
+                context.move_to(-ext.width / 2.0, ext.height / 2.0)
                 context.show_text(val_str)
                 context.restore()
 
@@ -140,6 +142,8 @@ class Object:
                         context.scale(1.0, -1.0)
                         context.move_to(s.maj_shift[0], -s.maj_shift[1])
                         val_str = f"{c_pos:{mt.label_precision[0]}.{mt.label_precision[1]}g}"
+                        ext = context.text_extents(val_str)
+                        context.move_to(-ext.width / 2.0, ext.height / 2.0)
                         context.show_text(val_str)
                         context.restore()
 
@@ -203,16 +207,10 @@ class Object:
                 s.color[0], s.color[1], s.color[2], s.color[3]
             )
 
-            # Range of the major scale
-            maj_span = s.range[1] - s.range[0]
-            maj_span_rot = s.span / maj_span
-            maj_step = maj_span / s.maj_ticks.count
-            maj_step_rot = s.span / s.maj_ticks.count
-
             context.save()
             context.translate(s.position[0], s.position[1])
             context.rotate(s.rotation)
             self._draw_labels(s, context)
             context.new_path()
-            self._draw_logarithmic_scale(s, context)
+            self._draw_scale(s, context)
             context.restore()
