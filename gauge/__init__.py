@@ -85,7 +85,7 @@ class Ticks:
         self.label_range: tuple[float, float] = (0.0, 1.0)
         self.label_angle: float = -1.0
         self.label_font: Font = Font()
-        self.label_precision: tuple[int, int] = (1, 0)
+        self.label_prec: tuple[float, float] = (2, 2)
         self.draw_labels: bool = False
 
 

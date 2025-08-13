@@ -40,8 +40,6 @@ class Object:
         # Font for labels
         self.font = gauge.Font()
         #
-        self.maj_prec = (1, 2)
-        #
         self.maj_shift = (0.0, 0.0)
         #
         self.label_radius = 0.7

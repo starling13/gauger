@@ -106,7 +106,7 @@ class Object:
                     context.rotate(s.maj_ticks.label_angle)
                 context.scale(1.0, -1.0)
                 context.move_to(s.maj_shift[0], -s.maj_shift[1])
-                val_str = f"{pos:{s.maj_prec[0]}.{s.maj_prec[1]}g}"
+                val_str = f"{pos:{s.maj_ticks.label_prec[0]}.{s.maj_ticks.label_prec[1]}g}"
                 ext = context.text_extents(val_str)
                 context.move_to(-ext.width / 2.0, ext.height / 2.0)
                 context.show_text(val_str)
@@ -141,7 +141,9 @@ class Object:
                             context.rotate(mt.label_angle)
                         context.scale(1.0, -1.0)
                         context.move_to(s.maj_shift[0], -s.maj_shift[1])
-                        val_str = f"{c_pos:{mt.label_precision[0]}.{mt.label_precision[1]}g}"
+                        val_str = (
+                            f"{c_pos:{mt.label_prec[0]}.{mt.label_prec[1]}g}"
+                        )
                         ext = context.text_extents(val_str)
                         context.move_to(-ext.width / 2.0, ext.height / 2.0)
                         context.show_text(val_str)

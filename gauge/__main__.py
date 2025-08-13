@@ -4,9 +4,7 @@ Created on 1 авг. 2025 г.
 @author: skvortsov
 """
 
-"""
 import math
-"""
 
 import gauge.exporter
 import gauge.round_gauge
@@ -23,11 +21,10 @@ exporter = gauge.exporter.Object()
 exporter.export(gauge1, "/tmp/gauge1.svg")
 
 
-"""
 o = gauge.round_gauge.Object()
 o.label.text = "Circular logarithmic ruler"
 o.label.position = (-0.45, -0.2)
-o.pen.color = gauge.Color.BLACK
+o.pen.color.from_fixed(gauge.FixedColor.BLACK)
 o.pen.thickness = 0.005
 o.size = (4096, 4096)
 
@@ -57,7 +54,7 @@ t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
 t1.label_font.size = 0.03
 t1.label_angle = math.pi / 2.0
-t1.label_precision = (1, 2)
+t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
 
 t2 = gauge.Ticks()
@@ -95,7 +92,7 @@ t5.length = 0.02
 t5.pen.thickness = 0.0025
 s.min_ticks.append(t5)
 
-o.scales.append(s)
+o.add_scale(s)
 
 s = gauge.scale.Object()
 s.radius = 0.8
@@ -108,7 +105,7 @@ s.label.text = "C"
 s.label.position = (0.9, -0.05)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
-s.label_radius = 0.9
+s.label_radius = 0.94
 s.maj_shift = (-0.02, -0.04)
 s.pen.thickness = 0.004
 s.maj_ticks.label_angle = math.pi / 2.0
@@ -123,7 +120,7 @@ t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
 t1.label_font.size = 0.03
 t1.label_angle = math.pi / 2.0
-t1.label_precision = (1, 2)
+t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
 
 t2 = gauge.Ticks()
@@ -161,10 +158,11 @@ t5.length = -0.02
 t5.pen.thickness = 0.0025
 s.min_ticks.append(t5)
 
-o.scales.append(s)
+o.add_scale(s)
 
 e = gauge.exporter.Object()
 e.export(o, "/tmp/ruler.svg")
+
 
 o = gauge.round_gauge.Object()
 o.label.text = "Pressure"
@@ -181,15 +179,14 @@ s.maj_ticks.length = 0.08
 s.label_radius = 0.45
 s.label.text = "Atm."
 s.label.position = (0.2, -0.41)
-s.maj_prec = (0, 2)
-s.maj_shift = (-0.05, -0.03)
+s.maj_ticks.label_prec = (2, 2)
 s.font.size = 0.08
 mt = gauge.Ticks()
 mt.range = (1.0, 15.0)
 mt.count = 1
 mt.length = 0.05
 s.min_ticks.append(mt)
-o.scales.append(s)
+o.add_scale(s)
 
 start_val = 1.02069  # Atm
 start_angle = s.get_angle(start_val)
@@ -215,13 +212,13 @@ s.label_radius = 0.8
 s.color = (0.4, 0.2, 0.2, 1.0)
 s.label.text = "PSI"
 s.label.position = (0.38, -0.51)
-s.maj_prec = (1, 4)
-s.maj_shift = (-0.05, -0.03)
+s.maj_ticks.label_prec = (3, 3)
 s.font.size = 0.08
-o.scales.append(s)
+o.add_scale(s)
 
 e = gauge.exporter.Object()
-e.export(o, "/tmp/2.svg")
+e.export(o, "/tmp/manometer.svg")
+
 
 o = gauge.round_gauge.Object()
 
@@ -230,19 +227,53 @@ s.rotation = math.pi / 2.0
 s.radius = 0.9
 s.span = math.pi * 2.0
 s.range = (0.0, 12.0)
+
 mt = gauge.Ticks()
 mt.count = 4
 mt.length = 0.04
+mt.range = (0.0, 12.0)
 s.min_ticks.append(mt)
-s.maj_ticks.count = 12
+
+s.maj_ticks.count = 11
 s.maj_ticks.length = 0.08
-s.maj_ticks_start = 1
-s.font.size = 0.2
+s.maj_ticks.label_range = (1.0, 12.0)
+s.maj_ticks.label_prec = (1, 2)
+s.font.size = 0.15
 s.font.face = gauge.FontFace.SANS
 s.label_radius = 0.7
-s.maj_prec = (2, 0)
-s.maj_shift = (-0.11, -0.07)
-o.scales.append(s)
+o.add_scale(s)
+
+e.export(o, "/tmp/clock.svg")
+
+
+o = gauge.round_gauge.Object()
+
+s = gauge.scale.Object()
+s.rotation = math.pi / 2.0
+s.radius = 0.95
+s.span = math.pi * 2.0
+s.range = (0.0, 24.0)
+
+mt = gauge.Ticks()
+mt.count = 1
+mt.length = 0.06
+mt.range = (0.0, 24.0)
+s.min_ticks.append(mt)
+
+mt = gauge.Ticks()
+mt.count = 4
+mt.length = 0.03
+mt.range = (0.0, 24.0)
+s.min_ticks.append(mt)
+
+s.maj_ticks.count = 11
+s.maj_ticks.length = 0.1
+s.maj_ticks.label_range = (1.0, 24.0)
+s.maj_ticks.label_prec = (1, 2)
+s.font.size = 0.12
+s.font.face = gauge.FontFace.SANS
+s.label_radius = 0.74
+o.add_scale(s)
 
 s = gauge.scale.Object()
 s.rotation = math.pi / 2.0
@@ -257,14 +288,14 @@ mt.length = 0.02
 s.min_ticks.append(mt)
 s.maj_ticks.count = 12
 s.maj_ticks.length = 0.04
-s.maj_ticks_start = 1
 s.label_radius = 0.23
-s.maj_prec = (2, 0)
 s.maj_shift = (-0.03, -0.02)
-o.scales.append(s)
+o.add_scale(s)
 
-e.export(o, "/tmp/3.svg")
+e.export(o, "/tmp/tank_clock.svg")
 
+
+"""
 o = gauge.round_gauge.Object()
 o.size = (400, 400)
 
