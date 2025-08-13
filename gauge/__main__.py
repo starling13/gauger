@@ -42,6 +42,7 @@ s.label_radius = 0.66
 s.maj_shift = (-0.025, -0.03)
 s.pen.thickness = 0.0025
 s.maj_ticks.length = 0.1
+s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
 
@@ -108,6 +109,7 @@ s.span = math.pi * 2
 s.label_radius = 0.94
 s.maj_shift = (-0.02, -0.04)
 s.pen.thickness = 0.004
+s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
 
@@ -252,12 +254,15 @@ s = gauge.scale.Object()
 s.rotation = math.pi / 2.0
 s.radius = 0.95
 s.span = math.pi * 2.0
-s.range = (0.0, 24.0)
+s.set_range((0.0, 24.0))
 
 mt = gauge.Ticks()
 mt.count = 1
 mt.length = 0.06
 mt.range = (0.0, 24.0)
+mt.draw_labels = True
+mt.label_font.size = 0.08
+mt.label_range = (0.0, 24.0)
 s.min_ticks.append(mt)
 
 mt = gauge.Ticks()
@@ -278,22 +283,22 @@ o.add_scale(s)
 s = gauge.scale.Object()
 s.rotation = math.pi / 2.0
 s.position = (0, -0.3)
-s.radius = 0.32
+s.radius = 0.33
 s.span = math.pi * 2.0
-s.range = (0.0, 60.0)
+s.set_range((0.0, 60.0))
 s.font.size = 0.06
 mt = gauge.Ticks()
 mt.count = 4
 mt.length = 0.02
+mt.range = (0.0, 60.0)
 s.min_ticks.append(mt)
-s.maj_ticks.count = 12
+s.maj_ticks.count = 11
 s.maj_ticks.length = 0.04
 s.label_radius = 0.23
 s.maj_shift = (-0.03, -0.02)
 o.add_scale(s)
 
 e.export(o, "/tmp/tank_clock.svg")
-
 
 """
 o = gauge.round_gauge.Object()

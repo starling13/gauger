@@ -123,6 +123,7 @@ class Object:
                         continue
                     c_angle = s.get_angle(c_pos)
                     context.save()
+
                     context.rotate(-c_angle)
                     context.set_line_width(mt.pen.thickness)
                     context.move_to(s.radius + mt.shift, 0.0)
@@ -136,7 +137,7 @@ class Object:
                         context.set_font_size(mt.label_font.size)
                         context.translate(s.label_radius, 0.0)
                         if mt.label_angle < 0.0:
-                            context.rotate(angle)
+                            context.rotate(c_angle - s.rotation)
                         else:
                             context.rotate(mt.label_angle)
                         context.scale(1.0, -1.0)
