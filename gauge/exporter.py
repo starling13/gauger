@@ -180,7 +180,7 @@ class Object:
         context.select_font_face(
             "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD
         )
-        context.set_font_size(0.08)
+        context.set_font_size(obj.label.font.size)
 
         context.move_to(obj.label.position[0], obj.label.position[1])
         context.scale(1, -1)

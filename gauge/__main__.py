@@ -25,25 +25,26 @@ exporter.export(gauge1, "/tmp/gauge1.svg")
 
 
 o = gauge.round_gauge.Object()
-o.label.text = "Circular logarithmic ruler"
-o.label.position = (-0.45, -0.2)
+o.label.text = "Circular slide rule"
+o.label.position = (-0.3, -0.1)
+o.label.font.size = 0.075
 o.pen.color.from_fixed(gauge.FixedColor.BLACK)
 o.pen.thickness = 0.005
 o.size = (4096, 4096)
 
 s = gauge.scale.Object()
-s.radius = 0.8
+s.radius = 0.82
 s.font.size = 0.04
 s.type = gauge.scale.Type.LOGARITHMIC
 s.range = (1.0, 10.0)
 s.maj_ticks.count = 9
-s.label.text = "D"
-s.label.position = (0.75, -0.05)
+s.label.text = "C"
+s.label.position = (0.79, -0.05)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
-s.label_radius = 0.66
-s.pen.thickness = 0.004
-s.maj_ticks.length = 0.1
+s.label_radius = 0.72
+s.pen.thickness = 0.0035
+s.maj_ticks.length = 0.08
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
@@ -51,7 +52,7 @@ s.maj_ticks.label_range = (1.0, 9.0)
 t1 = gauge.Ticks()
 t1.range = (1.0, 10.0)
 t1.count = 1
-t1.length = 0.08
+t1.length = 0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
@@ -70,41 +71,41 @@ s.min_ticks.append(t2)
 t3 = gauge.Ticks()
 t3.range = (1.0, 10.0)
 t3.count = 19
-t3.length = 0.04
+t3.length = 0.05
 t3.pen.thickness = 0.002
 s.min_ticks.append(t3)
 
 t6 = gauge.Ticks()
 t6.range = (1.0, 1.5)
 t6.count = 199
-t6.length = 0.01
+t6.length = 0.03
 t6.pen.thickness = 0.001
 s.min_ticks.append(t6)
 
 t4 = gauge.Ticks()
 t4.range = (1.0, 3.0)
 t4.count = 99
-t4.length = 0.02
+t4.length = 0.04
 t4.pen.thickness = 0.0015
 s.min_ticks.append(t4)
 
 t5 = gauge.Ticks()
 t5.range = (3.0, 6.0)
 t5.count = 39
-t5.length = 0.015
-t5.pen.thickness = 0.002
+t5.length = 0.04
+t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
 
 o.add_scale(s)
 
 s = gauge.scale.Object()
-s.radius = 0.8
+s.radius = 0.82
 s.font.size = 0.04
 s.type = gauge.scale.Type.LOGARITHMIC
 s.range = (1.0, 10.0)
 s.maj_ticks.count = 9
-s.maj_ticks.length = -0.1
-s.label.text = "C"
+s.maj_ticks.length = -0.09
+s.label.text = "D"
 s.label.position = (0.9, -0.05)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
@@ -117,7 +118,7 @@ s.maj_ticks.label_range = (1.0, 9.0)
 t1 = gauge.Ticks()
 t1.range = (1.0, 10.0)
 t1.count = 1
-t1.length = -0.08
+t1.length = -0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
@@ -130,41 +131,301 @@ t2 = gauge.Ticks()
 t2.range = (1.0, 10.0)
 t2.count = 9
 t2.length = -0.06
-t2.pen.thickness = 0.003
+t2.pen.thickness = 0.0025
 s.min_ticks.append(t2)
 
 t3 = gauge.Ticks()
 t3.range = (1.0, 10.0)
 t3.count = 19
-t3.length = -0.04
-t3.pen.thickness = 0.0025
+t3.length = -0.05
+t3.pen.thickness = 0.002
 s.min_ticks.append(t3)
 
 t6 = gauge.Ticks()
 t6.range = (1.0, 1.5)
 t6.count = 199
-t6.length = -0.01
+t6.length = -0.03
 t6.pen.thickness = 0.001
 s.min_ticks.append(t6)
 
 t4 = gauge.Ticks()
 t4.range = (1.0, 3.0)
 t4.count = 99
-t4.length = -0.02
+t4.length = -0.04
 t4.pen.thickness = 0.0015
 s.min_ticks.append(t4)
 
 t5 = gauge.Ticks()
 t5.range = (3.0, 6.0)
 t5.count = 39
-t5.length = -0.02
-t5.pen.thickness = 0.002
+t5.length = -0.04
+t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
 
 o.add_scale(s)
 
+s = gauge.scale.Object()
+s.type = gauge.scale.Type.LOGARITHMIC
+s.set_range((1.0, 10.0))
+s.radius = 0.665
+s.label.text = "A"
+s.label.position = (0.62, -0.05)
+s.label.rotation = math.pi / 2.0
+s.pen.thickness = 0.004
+s.span = math.pi
+s.font.size = 0.04
+s.label_radius = 0.55
+s.maj_ticks.length = 0.09
+s.maj_ticks.label_range = (1.0, 10.0)
+s.maj_ticks.label_prec = (0, 2)
+s.maj_ticks.count = 9
+s.maj_ticks.label_angle = math.pi / 2.0
+
+t1 = gauge.Ticks()
+t1.range = (1.0, 10.0)
+t1.count = 1
+t1.length = 0.07
+t1.pen.thickness = 0.003
+t1.draw_labels = True
+t1.label_range = (1.0, 7.5)
+t1.label_font.size = 0.03
+t1.label_angle = math.pi / 2.0
+t1.label_prec = (1, 2)
+s.min_ticks.append(t1)
+
+t2 = gauge.Ticks()
+t2.range = (1.0, 10.0)
+t2.count = 9
+t2.length = 0.06
+t2.pen.thickness = 0.002
+s.min_ticks.append(t2)
+
+t4 = gauge.Ticks()
+t4.range = (1.0, 3.0)
+t4.count = 49
+t4.length = 0.04
+t4.pen.thickness = 0.0015
+s.min_ticks.append(t4)
+
+t3 = gauge.Ticks()
+t3.range = (3.0, 6.0)
+t3.count = 19
+t3.length = 0.04
+t3.pen.thickness = 0.0025
+s.min_ticks.append(t3)
+
+o.add_scale(s)
+
+s = gauge.scale.Object()
+s.type = gauge.scale.Type.LOGARITHMIC
+s.set_range((10.0, 100.0))
+s.radius = 0.665
+s.label.text = ""  # A
+s.pen.thickness = 0.004
+s.span = math.pi
+s.rotation = math.pi
+s.font.size = 0.04
+s.label_radius = 0.55
+s.maj_ticks.length = 0.09
+s.maj_ticks.label_range = (20.0, 90.0)
+s.maj_ticks.count = 9
+s.maj_ticks.label_angle = math.pi / 2.0
+
+t1 = gauge.Ticks()
+t1.range = (10.0, 100.0)
+t1.count = 1
+t1.length = 0.07
+t1.pen.thickness = 0.003
+t1.draw_labels = True
+t1.label_range = (10.0, 75.0)
+t1.label_font.size = 0.03
+t1.label_angle = math.pi / 2.0
+t1.label_prec = (2, 2)
+s.min_ticks.append(t1)
+
+t2 = gauge.Ticks()
+t2.range = (10.0, 100.0)
+t2.count = 9
+t2.length = 0.06
+t2.pen.thickness = 0.002
+s.min_ticks.append(t2)
+
+t4 = gauge.Ticks()
+t4.range = (10.0, 30.0)
+t4.count = 49
+t4.length = 0.04
+t4.pen.thickness = 0.0015
+s.min_ticks.append(t4)
+
+t3 = gauge.Ticks()
+t3.range = (30.0, 60.0)
+t3.count = 19
+t3.length = 0.04
+t3.pen.thickness = 0.0025
+s.min_ticks.append(t3)
+
+o.add_scale(s)
+
+s = gauge.scale.Object()
+s.type = gauge.scale.Type.LOGARITHMIC
+s.set_range((1.0, 10.0))
+s.radius = 0.52
+s.label.text = "K"
+s.label.position = (0.4, -0.05)
+s.label.rotation = math.pi / 2.0
+s.pen.thickness = 0.003
+s.span = 2.0 / 3.0 * math.pi
+s.font.size = 0.04
+s.label_radius = 0.4
+s.maj_ticks.length = 0.09
+s.maj_ticks.label_range = (1.0, 9.0)
+s.maj_ticks.label_prec = (0, 2)
+s.maj_ticks.count = 9
+s.maj_ticks.label_angle = math.pi / 2.0
+
+t1 = gauge.Ticks()
+t1.range = (1.0, 10.0)
+t1.count = 1
+t1.length = 0.07
+t1.pen.thickness = 0.003
+t1.draw_labels = True
+t1.label_range = (1.0, 4.0)
+t1.label_font.size = 0.03
+t1.label_angle = math.pi / 2.0
+t1.label_prec = (1, 2)
+s.min_ticks.append(t1)
+
+t2 = gauge.Ticks()
+t2.range = (1.0, 6.0)
+t2.count = 9
+t2.length = 0.06
+t2.pen.thickness = 0.0015
+s.min_ticks.append(t2)
+
+t7 = gauge.Ticks()
+t7.range = (1.0, 3.0)
+t7.count = 19
+t7.length = 0.04
+t7.pen.thickness = 0.001
+s.min_ticks.append(t7)
+
+t3 = gauge.Ticks()
+t3.range = (6.0, 10.0)
+t3.count = 3
+t3.length = 0.06
+t3.pen.thickness = 0.001
+s.min_ticks.append(t3)
+
+o.add_scale(s)
+
+s = gauge.scale.Object()
+s.type = gauge.scale.Type.LOGARITHMIC
+s.set_range((10.0, 100.0))
+s.radius = 0.52
+s.label.text = ""  # K2
+s.label.position = (0.4, -0.05)
+s.label.rotation = math.pi / 2.0
+s.pen.thickness = 0.003
+s.rotation = -2.0 / 3.0 * math.pi
+s.span = 2.0 / 3.0 * math.pi
+s.font.size = 0.04
+s.label_radius = 0.4
+s.maj_ticks.length = 0.09
+s.maj_ticks.label_range = (10.0, 80.0)
+s.maj_ticks.label_prec = (0, 2)
+s.maj_ticks.count = 9
+s.maj_ticks.label_angle = math.pi / 2.0
+
+t1 = gauge.Ticks()
+t1.range = (10.0, 100.0)
+t1.count = 1
+t1.length = 0.07
+t1.pen.thickness = 0.002
+t1.draw_labels = True
+t1.label_range = (10.0, 30.0)
+t1.label_font.size = 0.03
+t1.label_angle = math.pi / 2.0
+t1.label_prec = (2, 3)
+s.min_ticks.append(t1)
+
+t2 = gauge.Ticks()
+t2.range = (10.0, 60.0)
+t2.count = 9
+t2.length = 0.06
+t2.pen.thickness = 0.001
+s.min_ticks.append(t2)
+
+t7 = gauge.Ticks()
+t7.range = (10.0, 30.0)
+t7.count = 19
+t7.length = 0.04
+t7.pen.thickness = 0.001
+s.min_ticks.append(t7)
+
+t3 = gauge.Ticks()
+t3.range = (60.0, 100.0)
+t3.count = 3
+t3.length = 0.06
+t3.pen.thickness = 0.001
+s.min_ticks.append(t3)
+
+o.add_scale(s)
+
+s = gauge.scale.Object()
+s.type = gauge.scale.Type.LOGARITHMIC
+s.set_range((100.0, 1000.0))
+s.radius = 0.52
+s.label.text = ""  # K3
+s.label.position = (0.4, -0.05)
+s.label.rotation = math.pi / 2.0
+s.pen.thickness = 0.003
+s.rotation = -4.0 / 3.0 * math.pi
+s.span = 2.0 / 3.0 * math.pi
+s.font.size = 0.04
+s.label_radius = 0.4
+s.maj_ticks.length = 0.09
+s.maj_ticks.label_range = (100.0, 600.0)
+s.maj_ticks.label_prec = (3, 3)
+s.maj_ticks.count = 9
+s.maj_ticks.label_angle = math.pi / 2.0
+
+t1 = gauge.Ticks()
+t1.range = (100.0, 1000.0)
+t1.count = 1
+t1.length = 0.07
+t1.pen.thickness = 0.002
+t1.draw_labels = True
+t1.label_range = (100.0, 200.0)
+t1.label_font.size = 0.03
+t1.label_angle = math.pi / 2.0
+t1.label_prec = (3, 3)
+s.min_ticks.append(t1)
+
+t2 = gauge.Ticks()
+t2.range = (100.0, 600.0)
+t2.count = 9
+t2.length = 0.06
+t2.pen.thickness = 0.001
+s.min_ticks.append(t2)
+
+t3 = gauge.Ticks()
+t3.range = (600.0, 1000.0)
+t3.count = 3
+t3.length = 0.06
+t3.pen.thickness = 0.001
+s.min_ticks.append(t3)
+
+t7 = gauge.Ticks()
+t7.range = (100.0, 300.0)
+t7.count = 19
+t7.length = 0.04
+t7.pen.thickness = 0.001
+s.min_ticks.append(t7)
+
+o.add_scale(s)
+
 e = gauge.exporter.Object()
-e.export(o, "/tmp/ruler.svg")
+e.export(o, "/tmp/ruler2.svg")
 
 
 o = gauge.round_gauge.Object()
