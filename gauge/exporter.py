@@ -1,7 +1,10 @@
-"""
-Created on 1 авг. 2025 г.
+# Copyright (c) 2025 Andrey V. Skvortsov
 
-@author: skvortsov
+# This work is licensed under the terms of the MIT license.
+# For a copy, see COPYING file
+
+"""
+@brief Module of the exporter object class
 """
 
 import math
@@ -9,59 +12,27 @@ import math
 import cairo
 
 import gauge.round_gauge
+import gauge.scale
 
 
 class Object:
+    """
+    @brioef Exporter object
+
+    Exports the gauge object to SVG-file
+    """
+
     def __init__(self) -> None:
         pass
 
-    def _draw_linear_scale(
-        self,
-        s: gauge.scale.Object,
-        context,
-        maj_span: float,
-        maj_span_rot: float,
-        maj_step: float,
-        maj_step_rot: float,
-    ):
-        context.set_line_width(s.pen.thickness)
-        arc_start = math.pi * 2.0 - s.span
-        arc_end = math.pi * 2.0
-        context.arc(
-            0.0,
-            0.0,
-            s.radius,
-            arc_start,
-            arc_end,
-        )
-        context.stroke()
-
-        pos = 0.0
-        while pos <= maj_span:
-            context.save()
-
-            context.rotate(-maj_span_rot * pos)
-            context.move_to(s.radius + s.maj_ticks.shift, 0.0)
-            context.line_to(
-                s.radius + s.maj_ticks.shift - s.maj_ticks.length, 0.0
-            )
-            context.stroke()
-
-            if maj_span - pos >= maj_step:
-                for i in range(0, s.min_ticks.count):
-                    context.rotate(-maj_step_rot / (s.min_ticks.count + 1))
-                    context.move_to(s.radius + s.min_ticks.shift, 0.0)
-                    context.line_to(
-                        s.radius + s.min_ticks.shift - s.min_ticks.length,
-                        0.0,
-                    )
-                    context.stroke()
-
-            context.restore()
-
-            pos += maj_step
-
-    def _draw_scale(self, s, context) -> None:
+    def _draw_scale(
+        self, s: gauge.scale.Object, context: cairo.Context
+    ) -> None:
+        """
+        @brief Draw scale on gauge based on the scale object
+        @param s -- scale object
+        @param context -- cairo context object
+        """
 
         context.set_font_size(s.font.size)
         context.set_line_width(s.pen.thickness)
@@ -77,10 +48,10 @@ class Object:
         context.stroke()
 
         pos = s.range[0]
-        step = (s.range[1] - s.range[0]) / (s.maj_ticks.count + 1)
+        step = (s.range[1] - s.range[0]) / (s.maj_ticks.count)
 
         i: int = 0
-        while i <= s.maj_ticks.count + 1:
+        while i <= s.maj_ticks.count:
             # Current position angle
             angle = s.get_angle(pos)
 
@@ -155,7 +126,14 @@ class Object:
             i += 1
             pos = s.range[0] + i * step
 
-    def _draw_labels(self, s: gauge.scale.Object, context):
+    def _draw_labels(
+        self, s: gauge.scale.Object, context: cairo.Context
+    ) -> None:
+        """
+        @brief Draw out-of-scale labels
+        @param s -- scale object
+        @param context -- cairo context object
+        """
         gar = ""
         if s.font.face == gauge.FontFace.MONO:
             gar = "Monospace"
@@ -178,6 +156,11 @@ class Object:
         context.restore()
 
     def export(self, obj: gauge.round_gauge.Object, file_path: str) -> None:
+        """
+        @brief Export gauge object into image file
+        @param obj -- Gauge object
+        @param file_path -- path to the SVG-file
+        """
         surface: cairo.SVGSurface = cairo.SVGSurface(
             file_path, obj.size[0], obj.size[1]
         )

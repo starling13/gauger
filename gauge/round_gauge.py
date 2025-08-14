@@ -1,7 +1,10 @@
-"""
-Created on 1 авг. 2025 г.
+# Copyright (c) 2025 Andrey V. Skvortsov
 
-@author: skvortsov
+# This work is licensed under the terms of the MIT license.
+# For a copy, see COPYING file
+
+"""
+@brief Module of the round gauge class
 """
 
 import gauge

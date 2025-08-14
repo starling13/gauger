@@ -1,3 +1,12 @@
+# Copyright (c) 2025 Andrey V. Skvortsov
+
+# This work is licensed under the terms of the MIT license.
+# For a copy, see COPYING file
+
+"""
+@brief Module of the exporting script from yaml description
+"""
+
 import argparse
 import logging
 import sys
