@@ -62,7 +62,7 @@ class Object:
         # Normalize value
         norm_val: float = gauge.normalize(i_val, self.range[0], self.range[1])
         if self.type == Type.LOGARITHMIC:
-            convexity = 10.0
+            convexity = 9.0
             new_val: float = math.log10(
                 1.0 + norm_val * convexity
             ) / math.log10(1.0 + convexity)
