@@ -1,4 +1,5 @@
 # Copyright (c) 2025 Andrey V. Skvortsov
+from multipart import file_path
 
 # This work is licensed under the terms of the MIT license.
 # For a copy, see COPYING file
@@ -16,14 +17,18 @@ import gauge.scale
 gauge1 = gauge.round_gauge.Object()
 
 scale1 = gauge.scale.Object()
-scale1.set_range((0.0, 10.0))
+gauge1.add_scale(scale_object=scale1)
+scale1.set_range(min_val=0.0, max_val=10.0)
 scale1.maj_ticks.count = 10
-gauge1.add_scale(scale1)
+
+mt1 = gauge.Ticks()
+scale1.add_minor_ticks(ticks=mt1)
+mt1.count = 1
 
 exporter = gauge.exporter.Object()
-exporter.export(gauge1, "/tmp/gauge1.svg")
+exporter.export(obj=gauge1, file_path="/tmp/gauge1.svg")
 
-
+"""
 o = gauge.round_gauge.Object()
 o.label.text = "Circular slide rule"
 o.label.position = (-0.3, -0.1)
@@ -482,34 +487,34 @@ o.add_scale(s)
 
 e = gauge.exporter.Object()
 e.export(o, "/tmp/manometer.svg")
-
+"""
 
 o = gauge.round_gauge.Object()
 
 s = gauge.scale.Object()
-s.rotation = math.pi / 2.0
-s.radius = 0.9
-s.span = math.pi * 2.0
-s.range = (0.0, 12.0)
+o.add_scale(s)
+# s.rotation = math.pi / 2.0
+# s.radius = 0.9
+# s.span = math.pi * 2.0
+s.set_range(min_val=0.0, max_val=12.0)
+s.maj_ticks.count = 12
+# s.maj_ticks.length = 0.08
+# s.maj_ticks.label_range = (1.0, 12.0)
+# s.maj_ticks.label_prec = (1, 2)
+# s.font.size = 0.15
+# s.font.face = gauge.FontFace.SANS
+# s.label_radius = 0.7
 
 mt = gauge.Ticks()
+s.add_minor_ticks(ticks=mt)
 mt.count = 4
-mt.length = 0.04
-mt.range = (0.0, 12.0)
-s.min_ticks.append(mt)
+# mt.length = 0.04
+# mt.range = (0.0, 12.0)
 
-s.maj_ticks.count = 12
-s.maj_ticks.length = 0.08
-s.maj_ticks.label_range = (1.0, 12.0)
-s.maj_ticks.label_prec = (1, 2)
-s.font.size = 0.15
-s.font.face = gauge.FontFace.SANS
-s.label_radius = 0.7
-o.add_scale(s)
-
+e = gauge.exporter.Object()
 e.export(o, "/tmp/clock.svg")
 
-
+"""
 o = gauge.round_gauge.Object()
 
 s = gauge.scale.Object()
@@ -562,7 +567,6 @@ o.add_scale(s)
 
 e.export(o, "/tmp/tank_clock.svg")
 
-"""
 o = gauge.round_gauge.Object()
 o.size = (400, 400)
 

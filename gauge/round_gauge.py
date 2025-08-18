@@ -7,6 +7,8 @@
 @brief Module of the round gauge class
 """
 
+import logging
+
 import gauge
 import gauge.scale
 
@@ -19,8 +21,8 @@ class Object:
         self.size: tuple[int, int] = (800, 800)
         self.label: gauge.Label = gauge.Label()
 
-    def add_scale(self, so: gauge.scale.Object) -> None:
-        self.scales.append(so)
+    def add_scale(self, scale_object: gauge.scale.Object) -> None:
+        self.scales.append(scale_object)
 
     def from_dict(self, data) -> None:
         if "gauge" not in data:
@@ -28,12 +30,12 @@ class Object:
 
         gauge_o = data.get("gauge")
         if gauge_o is None:
-            print("Empty gauge object")
+            logging.warning("Empty gauge object")
             return
 
         size_o = gauge_o.get("size")
         if size_o is None:
-            print("No 'size' field in 'gauge' object")
+            logging.warning("No 'size' field in 'gauge' object")
         else:
             if (
                 (not isinstance(size_o, list))
@@ -47,7 +49,7 @@ class Object:
 
         radius_o = gauge_o.get("radius")
         if radius_o is None:
-            print("No 'radius' field in 'gauge' object")
+            logging.warning("No 'radius' field in 'gauge' object")
         else:
             if not isinstance(radius_o, float):
                 raise Exception(
@@ -57,10 +59,12 @@ class Object:
 
         scales_o = gauge_o.get("scales")
         if scales_o is None:
-            print("No 'scales' field in 'gauge' object")
+            logging.warning("No 'scales' field in 'gauge' object")
         else:
             for s, v in scales_o.items():
                 scale_o = gauge.scale.Object()
+                self.add_scale(scale_o)
                 if v is not None:
                     scale_o.from_dict(v)
-                self.add_scale(scale_o)
+                else:
+                    logging.warning("Empty 'scale' object")

@@ -8,7 +8,7 @@
 """
 
 import enum
-import math
+import logging
 
 
 class FixedColor(enum.Enum):
@@ -96,6 +96,17 @@ class Ticks:
         self.label_font: Font = Font()
         self.label_prec: tuple[float, float] = (2, 2)
         self.draw_labels: bool = False
+
+    def from_dict(self, data) -> None:
+        count_o = data.get("count")
+        if count_o is None:
+            logging.warning("No 'count' field in 'ticks' object")
+        else:
+            if not isinstance(count_o, int):
+                raise Exception(
+                    "The 'count' field in 'ticks' object is not integer value"
+                )
+            self.count = count_o
 
 
 def normalize(val: float, a: float, b: float) -> float:

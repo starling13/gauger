@@ -8,9 +8,8 @@
 """
 
 import enum
+import logging
 import math
-
-from git.index import typ
 
 import gauge
 
@@ -51,13 +50,49 @@ class Object:
         #
         self.label: gauge.Label = gauge.Label()
 
-    def from_dict(self, data) -> None:
-        pass
+    def add_minor_ticks(self, ticks: gauge.Ticks) -> None:
+        self.min_ticks.append(ticks)
+        ticks.range = self.range
 
-    def set_range(self, new_val: tuple[float, float]) -> None:
-        self.range = new_val
-        self.maj_ticks.range = new_val
-        self.maj_ticks.label_range = new_val
+    def from_dict(self, data) -> None:
+        range_o = data.get("range")
+        if range_o is None:
+            logging.warning("No 'range' field in 'scale' object")
+        else:
+            if (
+                (not isinstance(range_o, list))
+                or len(range_o) != 2
+                or (not all(isinstance(x, float) for x in range_o))
+            ):
+                raise Exception(
+                    "The 'range' field in 'scale' object is not a tuple of 2 real values"
+                )
+            self.set_range(range_o[0], range_o[1])
+
+        maj_ticks_o = data.get("maj_ticks")
+        if maj_ticks_o is None:
+            logging.warning("No 'maj_ticks' object in 'scale' object")
+        else:
+            self.maj_ticks.from_dict(maj_ticks_o)
+
+        min_ticks_o = data.get("min_ticks")
+        if min_ticks_o is None:
+            logging.warning("No 'min_ticks' list in 'scale' object")
+        else:
+            if not isinstance(min_ticks_o, dict):
+                raise Exception(
+                    "The 'min_ticks' field in 'scale' object "
+                    "is not a dictionary"
+                )
+            for k, v in min_ticks_o.items():
+                mt = gauge.Ticks()
+                mt.from_dict(v)
+                self.add_minor_ticks(ticks=mt)
+
+    def set_range(self, min_val: float, max_val: float) -> None:
+        self.range = (min_val, max_val)
+        self.maj_ticks.range = (min_val, max_val)
+        self.maj_ticks.label_range = (min_val, max_val)
 
     def get_angle(self, val: float) -> float:
         # Clamp value to the scale range

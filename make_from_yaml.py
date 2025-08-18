@@ -39,7 +39,7 @@ def _main(argv: list[str]) -> int:
 
     logging.basicConfig(level=logging.DEBUG)
 
-    parser = argparse.ArgumentParser(sys.argv)
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         "-i",
         "--gauge_file",
@@ -54,7 +54,7 @@ def _main(argv: list[str]) -> int:
         required=True,
         help="File of the gauge images in SVG format",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(args=argv[1:])
 
     try:
         rg = import_gauge_from_yaml(args.gauge_file)
