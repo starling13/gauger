@@ -152,7 +152,7 @@ class Object:
         context.set_font_size(s.font.size)
 
         context.save()
-        context.rotate(-s.rotation)
+        context.rotate(s.rotation)
         context.move_to(s.label.position[0], s.label.position[1])
         context.rotate(s.label.rotation)
         context.scale(1.0, -1.0)
@@ -199,7 +199,7 @@ class Object:
 
             context.save()
             context.translate(s.position[0], s.position[1])
-            context.rotate(s.rotation)
+            context.rotate(-s.rotation)
             self._draw_labels(s, context)
             context.new_path()
             self._draw_scale(s, context)

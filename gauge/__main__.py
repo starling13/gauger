@@ -1,5 +1,4 @@
 # Copyright (c) 2025 Andrey V. Skvortsov
-from multipart import file_path
 
 # This work is licensed under the terms of the MIT license.
 # For a copy, see COPYING file
@@ -28,7 +27,6 @@ mt1.count = 1
 exporter = gauge.exporter.Object()
 exporter.export(obj=gauge1, file_path="/tmp/gauge1.svg")
 
-"""
 o = gauge.round_gauge.Object()
 o.label.text = "Circular slide rule"
 o.label.position = (-0.3, -0.1)
@@ -38,6 +36,7 @@ o.pen.thickness = 0.005
 o.size = (4096, 4096)
 
 s = gauge.scale.Object()
+o.add_scale(s)
 s.radius = 0.82
 s.font.size = 0.04
 s.type = gauge.scale.Type.LOGARITHMIC
@@ -47,25 +46,27 @@ s.label.text = "C"
 s.label.position = (0.79, -0.05)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
-s.label_radius = 0.72
+s.label_radius = 0.77
+s.maj_shift = (0.02, 0.0)
 s.pen.thickness = 0.0035
-s.maj_ticks.length = 0.08
+s.maj_ticks.length = 0.07
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
 
 t1 = gauge.Ticks()
+s.min_ticks.append(t1)
 t1.range = (1.0, 10.0)
 t1.count = 1
-t1.length = 0.07
+t1.length = 0.06
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
 t1.label_font.size = 0.03
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
-s.min_ticks.append(t1)
 
+"""
 t2 = gauge.Ticks()
 t2.range = (1.0, 10.0)
 t2.count = 9
@@ -100,8 +101,7 @@ t5.count = 39
 t5.length = 0.04
 t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
-
-o.add_scale(s)
+"""
 
 s = gauge.scale.Object()
 s.radius = 0.82
@@ -115,7 +115,7 @@ s.label.position = (0.9, -0.05)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
 s.label_radius = 0.94
-s.pen.thickness = 0.004
+s.pen.thickness = 0.0035
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
@@ -132,6 +132,7 @@ t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
 
+"""
 t2 = gauge.Ticks()
 t2.range = (1.0, 10.0)
 t2.count = 9
@@ -428,11 +429,11 @@ t7.pen.thickness = 0.001
 s.min_ticks.append(t7)
 
 o.add_scale(s)
-
+"""
 e = gauge.exporter.Object()
 e.export(o, "/tmp/ruler2.svg")
 
-
+"""
 o = gauge.round_gauge.Object()
 o.label.text = "Pressure"
 o.label.position = (-0.18, -0.2)
@@ -494,7 +495,7 @@ o = gauge.round_gauge.Object()
 s = gauge.scale.Object()
 o.add_scale(s)
 
-s.rotation = math.pi / 2.0
+s.rotation = -math.pi / 2.0
 # s.radius = 0.9
 s.span = math.pi * 2.0
 s.set_range(min_val=0.0, max_val=12.0)
