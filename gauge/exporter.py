@@ -72,14 +72,16 @@ class Object:
                 context.save()
                 context.translate(s.label_radius, 0.0)
                 if s.maj_ticks.label_angle < 0.0:
-                    context.rotate(angle - s.rotation)
+                    context.rotate(angle + s.rotation)
                 else:
                     context.rotate(s.maj_ticks.label_angle)
                 context.scale(1.0, -1.0)
-                context.move_to(s.maj_shift[0], -s.maj_shift[1])
                 val_str = f"{pos:{s.maj_ticks.label_prec[0]}.{s.maj_ticks.label_prec[1]}g}"
                 ext = context.text_extents(val_str)
-                context.move_to(-ext.width / 2.0, ext.height / 2.0)
+                context.move_to(
+                    s.maj_shift[0] - ext.width / 2.0,
+                    ext.height / 2.0 - s.maj_shift[1],
+                )
                 context.show_text(val_str)
                 context.restore()
 
@@ -108,16 +110,18 @@ class Object:
                         context.set_font_size(mt.label_font.size)
                         context.translate(s.label_radius, 0.0)
                         if mt.label_angle < 0.0:
-                            context.rotate(c_angle - s.rotation)
+                            context.rotate(c_angle + s.rotation)
                         else:
                             context.rotate(mt.label_angle)
                         context.scale(1.0, -1.0)
-                        context.move_to(s.maj_shift[0], -s.maj_shift[1])
                         val_str = (
                             f"{c_pos:{mt.label_prec[0]}.{mt.label_prec[1]}g}"
                         )
                         ext = context.text_extents(val_str)
-                        context.move_to(-ext.width / 2.0, ext.height / 2.0)
+                        context.move_to(
+                            s.maj_shift[0] - ext.width / 2.0,
+                            ext.height / 2.0 - s.maj_shift[1],
+                        )
                         context.show_text(val_str)
                         context.restore()
 
