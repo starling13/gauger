@@ -493,12 +493,13 @@ o = gauge.round_gauge.Object()
 
 s = gauge.scale.Object()
 o.add_scale(s)
-# s.rotation = math.pi / 2.0
+
+s.rotation = math.pi / 2.0
 # s.radius = 0.9
-# s.span = math.pi * 2.0
+s.span = math.pi * 2.0
 s.set_range(min_val=0.0, max_val=12.0)
 s.maj_ticks.count = 12
-# s.maj_ticks.length = 0.08
+s.maj_ticks.length = 0.1
 # s.maj_ticks.label_range = (1.0, 12.0)
 # s.maj_ticks.label_prec = (1, 2)
 # s.font.size = 0.15
@@ -508,7 +509,7 @@ s.maj_ticks.count = 12
 mt = gauge.Ticks()
 s.add_minor_ticks(ticks=mt)
 mt.count = 4
-# mt.length = 0.04
+mt.length = 0.05
 # mt.range = (0.0, 12.0)
 
 e = gauge.exporter.Object()

@@ -108,6 +108,16 @@ class Ticks:
                 )
             self.count = count_o
 
+        length_o = data.get("length")
+        if length_o is None:
+            logging.warning("No 'length' field in 'ticks' object")
+        else:
+            if not isinstance(length_o, float):
+                raise Exception(
+                    "The 'count' field in 'ticks' object is not real numeric value"
+                )
+            self.length = length_o
+
 
 def normalize(val: float, a: float, b: float) -> float:
     return (val - a) / (b - a)
