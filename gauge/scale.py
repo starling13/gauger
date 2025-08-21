@@ -55,6 +55,7 @@ class Object:
         ticks.range = self.range
 
     def from_dict(self, data) -> None:
+        # Range property
         range_o = data.get("range")
         if range_o is None:
             logging.warning("No 'range' field in 'scale' object")
@@ -65,16 +66,42 @@ class Object:
                 or (not all(isinstance(x, float) for x in range_o))
             ):
                 raise Exception(
-                    "The 'range' field in 'scale' object is not a tuple of 2 real values"
+                    "The 'range' field in 'scale' object is not a "
+                    "tuple of 2 real values"
                 )
             self.set_range(range_o[0], range_o[1])
 
+        # Rotation property
+        rot_o = data.get("rotation")
+        if rot_o is None:
+            logging.warning("No 'rotation' field in 'scale' object")
+        else:
+            if not isinstance(rot_o, float):
+                raise Exception(
+                    "The 'rotation' field in 'scale' object is not a "
+                    "real value"
+                )
+            self.rotation = math.radians(rot_o)
+
+        # Span property
+        span_o = data.get("span")
+        if span_o is None:
+            logging.warning("No 'span' field in 'scale' object")
+        else:
+            if not isinstance(span_o, float):
+                raise Exception(
+                    "The 'span' field in 'scale' object is not a " "real value"
+                )
+            self.span = math.radians(span_o)
+
+        # Major ticks object
         maj_ticks_o = data.get("maj_ticks")
         if maj_ticks_o is None:
             logging.warning("No 'maj_ticks' object in 'scale' object")
         else:
             self.maj_ticks.from_dict(maj_ticks_o)
 
+        # Minor ticks list
         min_ticks_o = data.get("min_ticks")
         if min_ticks_o is None:
             logging.warning("No 'min_ticks' list in 'scale' object")
