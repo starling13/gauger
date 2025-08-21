@@ -56,6 +56,7 @@ class Object:
             angle = s.get_angle(pos)
 
             context.save()
+            context.set_font_size(s.maj_ticks.label_font.size)
 
             context.rotate(-angle)
             context.set_line_width(s.pen.thickness)
@@ -88,6 +89,7 @@ class Object:
             context.restore()
 
             for mt in s.min_ticks:
+                context.set_font_size(mt.label_font.size)
                 c_step = step / (mt.count + 1)
                 c_pos: float = pos
                 for j in range(1, mt.count + 1):
@@ -107,7 +109,6 @@ class Object:
                         mt.label_range[0] <= pos and mt.label_range[1] >= pos
                     ):
                         context.save()
-                        context.set_font_size(mt.label_font.size)
                         context.translate(s.label_radius, 0.0)
                         if mt.label_angle < 0.0:
                             context.rotate(c_angle + s.rotation)

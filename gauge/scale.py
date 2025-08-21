@@ -71,6 +71,18 @@ class Object:
                 )
             self.set_range(range_o[0], range_o[1])
 
+        # Radius property
+        radius_o = data.get("radius")
+        if radius_o is None:
+            logging.warning("No 'radius' field in 'scale' object")
+        else:
+            if not isinstance(radius_o, float):
+                raise Exception(
+                    "The 'radius' field in 'scale' object is not a "
+                    "real value"
+                )
+            self.radius = radius_o
+
         # Rotation property
         rot_o = data.get("rotation")
         if rot_o is None:

@@ -114,9 +114,26 @@ class Ticks:
         else:
             if not isinstance(length_o, float):
                 raise Exception(
-                    "The 'count' field in 'ticks' object is not real numeric value"
+                    "The 'count' field in 'ticks' object is not real "
+                    "numeric value"
                 )
             self.length = length_o
+
+        # Label range property
+        label_range_o = data.get("label_range")
+        if label_range_o is None:
+            logging.warning("No 'label_range' field in 'ticks' object")
+        else:
+            if (
+                (not isinstance(label_range_o, list))
+                or len(label_range_o) != 2
+                or (not all(isinstance(x, float) for x in label_range_o))
+            ):
+                raise Exception(
+                    "The 'label_range' field in 'ticks' object is not a "
+                    "tuple of 2 real values"
+                )
+            self.label_range = (label_range_o[0], label_range_o[1])
 
 
 def normalize(val: float, a: float, b: float) -> float:
