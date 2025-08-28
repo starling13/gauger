@@ -56,6 +56,18 @@ class Object:
             angle = s.get_angle(pos)
 
             context.save()
+
+            gar = ""
+            if s.maj_ticks.label_font.face == gauge.FontFace.MONO:
+                gar = "Monospace"
+            elif s.maj_ticks.label_font.face == gauge.FontFace.SANS:
+                gar = "Arial"
+            elif s.maj_ticks.label_font.face == gauge.FontFace.SERIF:
+                gar = "Serif"
+
+            context.select_font_face(
+                gar, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD
+            )
             context.set_font_size(s.maj_ticks.label_font.size)
 
             context.rotate(-angle)
@@ -140,17 +152,17 @@ class Object:
         @param context -- cairo context object
         """
         gar = ""
-        if s.font.face == gauge.FontFace.MONO:
+        if s.label.font.face == gauge.FontFace.MONO:
             gar = "Monospace"
-        elif s.font.face == gauge.FontFace.SANS:
+        elif s.label.font.face == gauge.FontFace.SANS:
             gar = "Arial"
-        elif s.font.face == gauge.FontFace.SERIF:
+        elif s.label.font.face == gauge.FontFace.SERIF:
             gar = "Serif"
 
         context.select_font_face(
             gar, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD
         )
-        context.set_font_size(s.font.size)
+        context.set_font_size(s.label.font.size)
 
         context.save()
         context.rotate(s.rotation)

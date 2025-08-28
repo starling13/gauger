@@ -37,19 +37,20 @@ o.size = (4096, 4096)
 
 s = gauge.scale.Object()
 o.add_scale(s)
-s.radius = 0.82
-s.font.size = 0.04
+s.radius = 0.7
+s.font.size = 0.05
 s.type = gauge.scale.Type.LOGARITHMIC
 s.range = (1.0, 10.0)
-s.maj_ticks.count = 9
 s.label.text = "C"
-s.label.position = (0.79, -0.05)
+s.label.position = (0.0, 0.0)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
-s.label_radius = 0.77
-s.maj_shift = (0.02, 0.0)
-s.pen.thickness = 0.0035
-s.maj_ticks.length = 0.07
+s.label_radius = 0.57
+s.maj_shift = (0.0, 0.0)
+s.pen.thickness = 0.005
+s.maj_ticks.count = 9
+s.maj_ticks.label_font.size = 0.06
+s.maj_ticks.length = 0.08
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
@@ -104,6 +105,7 @@ s.min_ticks.append(t5)
 """
 
 s = gauge.scale.Object()
+o.add_scale(s)
 s.radius = 0.82
 s.font.size = 0.04
 s.type = gauge.scale.Type.LOGARITHMIC
@@ -167,8 +169,6 @@ t5.count = 39
 t5.length = -0.04
 t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
-
-o.add_scale(s)
 
 s = gauge.scale.Object()
 s.type = gauge.scale.Type.LOGARITHMIC
@@ -430,6 +430,7 @@ s.min_ticks.append(t7)
 
 o.add_scale(s)
 """
+
 e = gauge.exporter.Object()
 e.export(o, "/tmp/ruler2.svg")
 
@@ -496,16 +497,18 @@ s = gauge.scale.Object()
 o.add_scale(s)
 
 s.rotation = -math.pi / 2.0
-# s.radius = 0.9
+s.radius = 0.9
 s.span = math.pi * 2.0
 s.set_range(min_val=0.0, max_val=12.0)
 s.maj_ticks.count = 12
 s.maj_ticks.length = 0.1
-# s.maj_ticks.label_range = (1.0, 12.0)
-# s.maj_ticks.label_prec = (1, 2)
-# s.font.size = 0.15
-# s.font.face = gauge.FontFace.SANS
-# s.label_radius = 0.7
+s.maj_ticks.label_range = (1.0, 12.0)
+s.maj_ticks.label_prec = (1, 2)
+s.maj_ticks.label_font.size = 0.15
+s.maj_ticks.label_font.face = gauge.FontFace.SANS
+s.label.text = "Toy clock"
+s.label.position = (-0.25, -0.5)
+s.label.font.face = gauge.FontFace.SERIF
 
 mt = gauge.Ticks()
 s.add_minor_ticks(ticks=mt)
@@ -608,3 +611,122 @@ s.maj_shift = (-0.05, -0.025)
 o.scales.append(s)
 e.export(o, "/tmp/4.svg")
 """
+
+o = gauge.round_gauge.Object()
+o.label.text = "Логарифмический умножитель"
+o.label.position = (-0.45, -0.1)
+o.label.font.size = 0.065
+o.pen.color.from_fixed(gauge.FixedColor.BLACK)
+o.pen.thickness = 0.005
+o.size = (4096, 4096)
+
+s = gauge.scale.Object()
+o.add_scale(s)
+s.radius = 0.7
+s.font.size = 0.08
+s.type = gauge.scale.Type.LOGARITHMIC
+s.range = (1.0, 10.0)
+s.label.text = "C"
+s.label.position = (0.67, -0.1)
+s.label.rotation = math.pi / 2.0
+s.span = math.pi
+s.label_radius = 0.55
+s.maj_shift = (0.0, 0.0)
+s.pen.thickness = 0.003
+s.maj_ticks.count = 9
+s.maj_ticks.label_font.size = 0.07
+s.maj_ticks.length = 0.08
+s.maj_ticks.label_prec = (0, 1)
+s.maj_ticks.label_angle = math.pi / 4.0
+s.maj_ticks.label_range = (1.0, 9.0)
+
+s = gauge.scale.Object()
+o.add_scale(s)
+s.radius = 0.7
+s.font.size = 0.05
+s.type = gauge.scale.Type.LOGARITHMIC
+s.range = (10.0, 100.0)
+s.label.text = ""  # C2
+s.label.position = (0.0, 0.0)
+s.label.rotation = math.pi
+s.span = math.pi
+s.rotation = math.pi
+s.label_radius = 0.55
+s.maj_shift = (0.0, 0.0)
+s.pen.thickness = 0.006
+s.maj_ticks.count = 9
+s.maj_ticks.label_font.size = 0.07
+s.maj_ticks.length = 0.08
+s.maj_ticks.label_prec = (2, 2)
+s.maj_ticks.label_angle = math.pi / 4.0
+s.maj_ticks.label_range = (10.0, 90.0)
+
+mt = gauge.Ticks()
+s.min_ticks.append(mt)
+mt.count = 9
+mt.length = 0.05
+mt.range = (10.0, 100.0)
+mt.pen.thickness = 0.003
+
+mt = gauge.Ticks()
+s.min_ticks.append(mt)
+mt.count = 1
+mt.length = 0.075
+mt.range = (10.0, 100.0)
+mt.pen.thickness = 0.005
+
+s = gauge.scale.Object()
+o.add_scale(s)
+s.radius = 0.7
+s.font.size = 0.08
+s.type = gauge.scale.Type.LOGARITHMIC
+s.range = (1.0, 10.0)
+s.label.text = "D"
+s.label.position = (0.78, -0.1)
+s.label.rotation = math.pi / 2.0
+s.span = math.pi
+s.label_radius = 0.87
+s.maj_shift = (0.0, 0.0)
+s.pen.thickness = 0.003
+s.maj_ticks.count = 9
+s.maj_ticks.label_font.size = 0.08
+s.maj_ticks.length = -0.1
+s.maj_ticks.label_prec = (0, 1)
+s.maj_ticks.label_angle = math.pi / 4.0
+s.maj_ticks.label_range = (1.0, 9.0)
+
+s = gauge.scale.Object()
+o.add_scale(s)
+s.radius = 0.7
+s.font.size = 0.05
+s.type = gauge.scale.Type.LOGARITHMIC
+s.range = (10.0, 100.0)
+s.label.text = ""  # D2
+s.label.rotation = math.pi
+s.span = math.pi
+s.rotation = math.pi
+s.label_radius = 0.87
+s.maj_shift = (0.0, 0.0)
+s.pen.thickness = 0.006
+s.maj_ticks.count = 9
+s.maj_ticks.label_font.size = 0.08
+s.maj_ticks.length = -0.1
+s.maj_ticks.label_prec = (2, 2)
+s.maj_ticks.label_angle = math.pi / 4.0
+s.maj_ticks.label_range = (10.0, 90.0)
+
+mt = gauge.Ticks()
+s.min_ticks.append(mt)
+mt.count = 9
+mt.length = -0.05
+mt.range = (10.0, 100.0)
+mt.pen.thickness = 0.003
+
+mt = gauge.Ticks()
+s.min_ticks.append(mt)
+mt.count = 1
+mt.length = -0.075
+mt.range = (10.0, 100.0)
+mt.pen.thickness = 0.005
+
+e.export(o, "/tmp/kolya_rule.svg")
