@@ -25,15 +25,7 @@ class Object:
         self.scales.append(scale_object)
 
     def from_dict(self, data) -> None:
-        if "gauge" not in data:
-            raise Exception("No 'gauge' object")
-
-        gauge_o = data.get("gauge")
-        if gauge_o is None:
-            logging.warning("Empty gauge object")
-            return
-
-        size_o = gauge_o.get("size")
+        size_o = data.get("size")
         if size_o is None:
             logging.warning("No 'size' field in 'gauge' object")
         else:
@@ -47,7 +39,7 @@ class Object:
                 )
             self.size = (size_o[0], size_o[1])
 
-        radius_o = gauge_o.get("radius")
+        radius_o = data.get("radius")
         if radius_o is None:
             logging.warning("No 'radius' field in 'gauge' object")
         else:
@@ -57,7 +49,7 @@ class Object:
                 )
             self.radius = radius_o
 
-        scales_o = gauge_o.get("scales")
+        scales_o = data.get("scales")
         if scales_o is None:
             logging.warning("No 'scales' field in 'gauge' object")
         else:

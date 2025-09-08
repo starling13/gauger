@@ -128,6 +128,15 @@ class Object:
                 mt.from_dict(v)
                 self.add_minor_ticks(ticks=mt)
 
+        # Label object
+        label_o = data.get("label")
+        if label_o is None:
+            logging.warning("No 'label' property in 'scale' object")
+        else:
+            label = gauge.Label()
+            label.from_dict(label_o)
+            self.label = label
+
     def set_range(self, min_val: float, max_val: float) -> None:
         self.range = (min_val, max_val)
         self.maj_ticks.range = (min_val, max_val)

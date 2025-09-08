@@ -34,6 +34,40 @@ class Font:
         self.face: FontFace = FontFace.SANS
         self.size: float = 0.1
 
+    def from_dict(self, data) -> None:
+        # Face property
+        face_o = data.get("face")
+        if face_o is None:
+            logging.warning("No 'face' field in 'font' object")
+        else:
+            if not isinstance(face_o, str):
+                raise Exception(
+                    "The 'face' field in 'font' object is not  a string "
+                    "value"
+                )
+            face = FontFace.NONE
+            if face_o == "sans":
+                face = FontFace.SANS
+            elif face_o == "serif":
+                face = FontFace.SERIF
+            elif face_o == "mono":
+                face = FontFace.MONO
+            else:
+                raise Exception(f"Value '{face_o}' is unknown font face")
+            self.face = face
+
+        # Size property
+        size_o = data.get("size")
+        if size_o is None:
+            logging.warning("No 'size' field in 'font' object")
+        else:
+            if not isinstance(face_o, str):
+                raise Exception(
+                    "The 'size' field in 'font' object is not a floating point"
+                    " real value"
+                )
+            self.size = size_o
+
 
 class Color:
     def __init__(self) -> None:
@@ -84,6 +118,42 @@ class Label:
         self.rotation: float = 0.0
         self.font: Font = Font()
 
+    def from_dict(self, data) -> None:
+        text_o = data.get("text")
+        if text_o is None:
+            logging.warning("No 'text' field in 'label' object")
+        else:
+            if not isinstance(text_o, str):
+                raise Exception(
+                    "The 'text' field in 'label' object is not a string value"
+                )
+            self.text = text_o
+
+        # Font property
+        font_o = data.get("font")
+        if font_o is None:
+            logging.warning("No 'font' field in 'label' object")
+        else:
+            font = Font()
+            font.from_dict(font_o)
+            self.font = font
+
+        # Position property
+        position_o = data.get("position")
+        if position_o is None:
+            logging.warning("No 'position' field in 'label' object")
+        else:
+            if (
+                (not isinstance(position_o, list))
+                or len(position_o) != 2
+                or (not all(isinstance(x, float) for x in position_o))
+            ):
+                raise Exception(
+                    "The 'position' field in 'label' object is not a "
+                    "tuple of 2 floating point real values"
+                )
+            self.position = (position_o[0], position_o[1])
+
 
 class Ticks:
     def __init__(self) -> None:
@@ -95,7 +165,7 @@ class Ticks:
         self.label_range: tuple[float, float] = (0.0, 1.0)
         self.label_angle: float = -1.0
         self.label_font: Font = Font()
-        self.label_prec: tuple[float, float] = (2, 2)
+        self.label_prec: tuple[int, int] = (2, 2)
         self.draw_labels: bool = False
 
     def from_dict(self, data) -> None:
@@ -109,6 +179,7 @@ class Ticks:
                 )
             self.count = count_o
 
+        # Length property
         length_o = data.get("length")
         if length_o is None:
             logging.warning("No 'length' field in 'ticks' object")
@@ -135,6 +206,31 @@ class Ticks:
                     "tuple of 2 real values"
                 )
             self.label_range = (label_range_o[0], label_range_o[1])
+
+        # Label precision property
+        label_prec_o = data.get("label_prec")
+        if label_prec_o is None:
+            logging.warning("No 'label_prec' field in 'ticks' object")
+        else:
+            if (
+                (not isinstance(label_prec_o, list))
+                or len(label_range_o) != 2
+                or (not all(isinstance(x, int) for x in label_prec_o))
+            ):
+                raise Exception(
+                    "The 'label_prec' field in 'ticks' object is not a "
+                    "tuple of 2 int values"
+                )
+            self.label_prec = (label_prec_o[0], label_prec_o[1])
+
+        # Label font property
+        label_font_o = data.get("label_font")
+        if label_font_o is None:
+            logging.warning("No 'label_font' field in 'ticks' object")
+        else:
+            label_font = Font()
+            label_font.from_dict(label_font_o)
+            self.label_font = label_font
 
 
 def normalize(val: float, a: float, b: float) -> float:

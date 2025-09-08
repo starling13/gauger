@@ -27,7 +27,15 @@ def import_gauge_from_yaml(file_path: str) -> gauge.round_gauge.Object:
     if data is None:
         raise Exception("Not valid yaml file")
 
-    g.from_dict(data)
+    if "gauge" not in data:
+        raise Exception("No 'gauge' object")
+
+    gauge_o = data.get("gauge")
+    if gauge_o is None:
+        logging.warning("Empty gauge object")
+        return
+
+    g.from_dict(gauge_o)
 
     return g
 
