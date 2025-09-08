@@ -509,7 +509,6 @@ s.maj_ticks.label_font.face = gauge.FontFace.SANS
 s.label.text = "Toy clock"
 s.label.position = (-0.25, -0.5)
 s.label.font.face = gauge.FontFace.SERIF
-
 mt = gauge.Ticks()
 s.add_minor_ticks(ticks=mt)
 mt.count = 4

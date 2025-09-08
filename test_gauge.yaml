@@ -9,7 +9,16 @@ gauge:
         count: 12
         length: 0.1
         label_range: [1.0, 12.0]
+        label_prec: [1, 2]
+        label_font:
+          face: sans
+          size: 0.15
       min_ticks:
         ticks1:
           count: 4
           length: 0.05
+      label:
+        text: "Toy clock"
+        position: [-0.25, -0.5]
+        font:
+          face: serif

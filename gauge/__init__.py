@@ -23,9 +23,10 @@ class FixedColor(enum.Enum):
 
 
 class FontFace(enum.Enum):
-    SANS = 0
-    SERIF = 1
-    MONO = 2
+    NONE = 0
+    SANS = 1
+    SERIF = 2
+    MONO = 3
 
 
 class Font:
