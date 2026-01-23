@@ -33,6 +33,8 @@ class Object:
         self.rotation = 0.0
         # Span of the scale main measurement line (radians) [0; 2*pi]
         self.span = 2 * math.pi * 0.9
+        # Scale narrowing
+        self.narrowing = math.nan
         # Range of the scale in measured units
         self.range = (0.0, 1.0)
         # Minor ticks count

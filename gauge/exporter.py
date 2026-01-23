@@ -38,14 +38,40 @@ class Object:
         context.set_line_width(s.pen.thickness)
         arc_start = math.pi * 2.0 - s.span
         arc_end = math.pi * 2.0
-        context.arc(
-            0.0,
-            0.0,
-            s.radius,
-            arc_start,
-            arc_end,
-        )
+
+        context.save()
+        if math.isnan(s.narrowing):
+            context.arc(
+                0.0,
+                0.0,
+                s.radius,
+                arc_start,
+                arc_end,
+            )
+        else:
+            r = s.radius
+            a = arc_start
+            # context.rotate(-arc_start)
+            context.move_to(r, 0)
+            while True:
+                ef = False
+                da = min(math.fabs(arc_end - a), 0.1)
+                if da < 0.1:
+                    ef = True
+                if arc_start < arc_end:
+                    da = da
+                else:
+                    da = -da
+
+                r -= 0.1 * s.narrowing
+                context.rotate(-da)
+                context.line_to(r, 0)
+                a += da
+                if ef:
+                    break
+
         context.stroke()
+        context.restore()
 
         pos = s.range[0]
         step = (s.range[1] - s.range[0]) / (s.maj_ticks.count)
@@ -72,10 +98,11 @@ class Object:
 
             context.rotate(-angle)
             context.set_line_width(s.pen.thickness)
-            context.move_to(s.radius + s.maj_ticks.shift, 0.0)
-            context.line_to(
-                s.radius + s.maj_ticks.shift - s.maj_ticks.length, 0.0
-            )
+            bp = s.radius + s.maj_ticks.shift
+            if not math.isnan(s.narrowing):
+                bp -= s.narrowing * angle
+            context.move_to(bp, 0.0)
+            context.line_to(bp - s.maj_ticks.length, 0.0)
             context.stroke()
 
             if (
@@ -83,7 +110,10 @@ class Object:
                 and s.maj_ticks.label_range[1] >= pos
             ):
                 context.save()
-                context.translate(s.label_radius, 0.0)
+                r = s.label_radius
+                if not math.isnan(s.narrowing):
+                    r -= s.narrowing * angle
+                context.translate(r, 0.0)
                 if s.maj_ticks.label_angle < 0.0:
                     context.rotate(angle + s.rotation)
                 else:
