@@ -573,17 +573,23 @@ s.set_range(min_val=0.0, max_val=24.0)
 s.maj_ticks.count = 12
 # Major ticks length is ~ 0.1 of the gauge radius
 s.maj_ticks.length = 0.1
-# Major ticks span range from 1 to 24, excluding 0 which has 12 mark as scale spans whole 360 deg. circle.
+# Major ticks span range from 1 to 24, excluding 0 which has 24 mark as scale spans whole 360 deg. circle.
 s.maj_ticks.label_range = (1.0, 24.0)
 # Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
 s.maj_ticks.label_prec = (1, 2)
 # Relative size of the hour labels font
-s.maj_ticks.label_font.size = 0.1
+s.maj_ticks.label_font.size = 0.11
 # Face of the hour labels font
 s.maj_ticks.label_font.face = gauge.FontFace.SANS
-# s.font.size = 0.12
-# s.font.face = gauge.FontFace.SANS
-# s.label_radius = 0.74
+# Set radius of the virtual circle along which labels are placed
+s.label_radius = 0.75
+
+# Common label of the scale
+s.label.text = "Tank clock"
+# Common label position
+s.label.position = (-0.3, 0.4)
+# Font face for common label
+s.label.font.face = gauge.FontFace.MONO
 
 # Minor ticks object
 mt = gauge.Ticks()
@@ -593,11 +599,14 @@ s.add_minor_ticks(ticks=mt)
 mt.count = 1
 # Minor ticks are shorter then major
 mt.length = 0.06
-
-# mt.range = (0.0, 24.0)
-# mt.draw_labels = True
-# mt.label_font.size = 0.08
-# mt.label_range = (0.0, 24.0)
+# Draw labels on minor ticks
+mt.draw_labels = True
+# Font size of the minor ticks is slighter smaller the in major ones
+mt.label_font.size = 0.075
+# Minor ticks span range from 0 to 24, so to add mark on 1 hour
+mt.label_range = (0.0, 24.0)
+# Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
+mt.label_prec = (1, 2)
 
 # mt = gauge.Ticks()
 # mt.count = 4
