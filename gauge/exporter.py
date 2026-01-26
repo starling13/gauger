@@ -97,7 +97,7 @@ class Object:
             context.set_font_size(s.maj_ticks.label_font.size)
 
             context.rotate(-angle)
-            context.set_line_width(s.pen.thickness)
+            context.set_line_width(s.maj_ticks.pen.thickness)
             bp = s.radius + s.maj_ticks.shift
             if not math.isnan(s.narrowing):
                 bp -= s.narrowing * angle
