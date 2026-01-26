@@ -12,14 +12,63 @@ import logging
 
 
 class FixedColor(enum.Enum):
-    WHITE = 0
-    BLACK = 1
-    RED = 2
-    GREEN = 3
-    BLUE = 4
-    CYAN = 5
-    MAGENTA = 6
-    YELLOW = 7
+    BLACK = 0
+    BLUE = 1
+    GREEN = 2
+    CYAN = 3
+    RED = 4
+    MAGENTA = 5
+    BROWN = 6
+    LIGHT_GRAY = 7
+    DARK_GRAY = 8
+    LIGHT_BLUE = 9
+    LIGHT_GREEN = 10
+    LIGHT_CYAN = 11
+    LIGHT_RED = 12
+    LIGHT_MAGENTA = 13
+    YELLOW = 14
+    WHITE = 15
+
+
+# AA hex integer as part of 255
+__hex_AA = 170.0 / 255.0
+# 55 hex integer as part of 255
+__hex_55 = 55.0 / 255.0
+
+_fixed_colors: list[tuple[float, float, float, float]] = [
+    # BLACK 0
+    (0.0, 0.0, 0.0, 1.0),
+    # BLUE 1
+    (0.0, 0.0, __hex_AA, 1.0),
+    # GREEN 2
+    (0.0, __hex_AA, 0.0, 1.0),
+    # CYAN 3
+    (0.0, __hex_AA, __hex_AA, 1.0),
+    # RED 4
+    (__hex_AA, 0.0, 0.0, 1.0),
+    # MAGENTA 5
+    (__hex_AA, 0.0, __hex_AA, 1.0),
+    # BROWN 6
+    (__hex_AA, __hex_55, 0.0, 1.0),
+    # LIGHT_GRAY 7
+    (__hex_AA, __hex_AA, __hex_AA, 1.0),
+    # DARK_GRAY 8
+    (__hex_55, __hex_55, __hex_55, 1.0),
+    # LIGHT_BLUE 9
+    (__hex_55, __hex_55, 1.0, 1.0),
+    # LIGHT_GREEN 10
+    (__hex_55, 1.0, __hex_55, 1.0),
+    # LIGHT_CYAN 11
+    (__hex_55, 1.0, 1.0, 1.0),
+    # LIGHT_RED 12
+    (1.0, __hex_55, __hex_55, 1.0),
+    # LIGHT_MAGENTA 13
+    (1.0, __hex_55, 1.0, 1.0),
+    # YELLOW 14
+    (1.0, 1.0, __hex_55, 1.0),
+    # WHITE 15
+    (1.0, 1.0, 1.0, 1.0),
+]
 
 
 class FontFace(enum.Enum):
@@ -74,22 +123,7 @@ class Color:
         self.color = (0.0, 0.0, 0.0, 1.0)
 
     def from_fixed(self, fc: FixedColor) -> None:
-        if fc == FixedColor.BLACK:
-            self.color = (0.0, 0.0, 0.0, 1.0)
-        elif fc == FixedColor.WHITE:
-            self.color = (1.0, 1.0, 1.0, 1.0)
-        elif fc == FixedColor.RED:
-            self.color = (1.0, 0.0, 0.0, 1.0)
-        elif fc == FixedColor.GREEN:
-            self.color = (1.0, 1.0, 0.0, 1.0)
-        elif fc == FixedColor.BLUE:
-            self.color = (0.0, 0.0, 1.0, 1.0)
-        elif fc == FixedColor.CYAN:
-            self.color = (0.0, 0.0, 1.0, 1.0)
-        elif fc == FixedColor.MAGENTA:
-            self.color = (0.0, 0.0, 1.0, 1.0)
-        elif fc == FixedColor.YELLOW:
-            self.color = (0.0, 0.0, 1.0, 1.0)
+        self.color = _fixed_colors[fc.value]
 
     def from_dict(self, data) -> None:
         color_o = data.get("color")
