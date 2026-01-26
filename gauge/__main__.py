@@ -13,6 +13,47 @@ import gauge.exporter
 import gauge.round_gauge
 import gauge.scale
 
+exporter = gauge.exporter.Object()
+
+"""
+Naval astrolabe
+"""
+
+sq_gauge = gauge.round_gauge.Object()
+sq_gauge.size = (1024, 1024)
+sq_gauge.set_radius(0.99)
+
+s = gauge.scale.Object()
+sq_gauge.add_scale(s)
+s.rotation = math.pi
+s.radius = 0.99
+
+s.set_range(180.0, -180.0)
+s.span = math.pi * 2.0
+s.label_radius = 0.9
+s.maj_ticks.pen.thickness = 0.006
+s.maj_ticks.length = 0.06
+s.maj_ticks.label_font.size = 0.05
+s.maj_ticks.label_angle = 3.0 * math.pi / 2.0
+s.maj_ticks.label_prec = (0, 3)
+s.maj_ticks.count = 36
+s.maj_ticks.label_range = (-170.0, 180.0)
+
+mt1 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt1)
+mt1.count = 9
+mt1.length = 0.045
+mt1.pen.thickness = 0.004
+
+mt2 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt2)
+mt2.count = 19
+mt2.length = 0.03
+mt2.pen.thickness = 0.003
+
+exporter.export(obj=sq_gauge, file_path="/tmp/naval_astrolabe.svg")
+
+
 """
 Spiral scale
 """
@@ -31,7 +72,6 @@ scale1.maj_ticks.label_angle = math.pi / 2.0
 
 sq_gauge.add_scale(scale1)
 
-exporter = gauge.exporter.Object()
 exporter.export(obj=sq_gauge, file_path="/tmp/sq_gauge.svg")
 
 """
@@ -63,7 +103,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
 s.font.size = 0.05
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "C"
 s.label.position = (0.77, -0.07)
@@ -72,7 +112,7 @@ s.label.font.size = 0.075
 s.span = math.pi * 2
 s.label_radius = 0.71
 s.maj_shift = (0.0, 0.0)
-s.pen.thickness = 0.005
+s.maj_ticks.pen.thickness = 0.005
 s.maj_ticks.count = 9
 s.maj_ticks.label_font.size = 0.06
 s.maj_ticks.length = 0.08
@@ -134,7 +174,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
 s.font.size = 0.03
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.maj_ticks.count = 9
 s.maj_ticks.length = -0.09
@@ -144,7 +184,7 @@ s.label.position = (0.91, -0.07)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
 s.label_radius = 0.94
-s.pen.thickness = 0.0035
+s.maj_ticks.pen.thickness = 0.0035
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_font.size = 0.07
 s.maj_ticks.label_angle = math.pi / 2.0
@@ -199,14 +239,14 @@ s.min_ticks.append(t5)
 
 
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(1.0, 10.0)
 s.radius = 0.665
 s.label.text = "A"
 s.label.position = (0.6, -0.07)
 s.label.font.size = 0.075
 s.label.rotation = math.pi / 2.0
-s.pen.thickness = 0.004
+s.maj_ticks.pen.thickness = 0.004
 s.span = math.pi
 s.font.size = 0.04
 s.label_radius = 0.55
@@ -253,11 +293,11 @@ s.min_ticks.append(t3)
 o.add_scale(s)
 
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(10.0, 100.0)
 s.radius = 0.665
 s.label.text = ""  # A
-s.pen.thickness = 0.004
+s.maj_ticks.pen.thickness = 0.004
 s.span = math.pi
 s.rotation = math.pi
 s.font.size = 0.04
@@ -304,14 +344,14 @@ s.min_ticks.append(t3)
 o.add_scale(s)
 
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(1.0, 10.0)
 s.radius = 0.52
 s.label.text = "K"
 s.label.position = (0.45, -0.07)
 s.label.font.size = 0.075
 s.label.rotation = math.pi / 2.0
-s.pen.thickness = 0.003
+s.maj_ticks.pen.thickness = 0.003
 s.span = 2.0 / 3.0 * math.pi
 s.font.size = 0.04
 s.label_radius = 0.4
@@ -358,13 +398,13 @@ s.min_ticks.append(t3)
 o.add_scale(s)
 
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(10.0, 100.0)
 s.radius = 0.52
 s.label.text = ""  # K2
 s.label.position = (0.4, -0.05)
 s.label.rotation = math.pi / 2.0
-s.pen.thickness = 0.003
+s.maj_ticks.pen.thickness = 0.003
 s.rotation = 2.0 / 3.0 * math.pi
 s.span = 2.0 / 3.0 * math.pi
 s.font.size = 0.04
@@ -412,13 +452,13 @@ s.min_ticks.append(t3)
 o.add_scale(s)
 
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(100.0, 1000.0)
 s.radius = 0.52
 s.label.text = ""  # K3
 s.label.position = (0.4, -0.05)
 s.label.rotation = math.pi / 2.0
-s.pen.thickness = 0.003
+s.maj_ticks.pen.thickness = 0.003
 s.rotation = 4.0 / 3.0 * math.pi
 s.span = 2.0 / 3.0 * math.pi
 s.font.size = 0.04
@@ -667,7 +707,7 @@ e.export(o, "/tmp/1.svg")
 o = gauge.round_gauge.Object()
 o.size = (400, 400)
 s = gauge.scale.Object()
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (0, 1.0e10)
 s.maj_ticks.count = 9
 s.radius = 0.8
@@ -690,7 +730,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
 s.font.size = 0.08
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "C"
 s.label.position = (0.67, -0.1)
@@ -698,7 +738,7 @@ s.label.rotation = math.pi / 2.0
 s.span = math.pi
 s.label_radius = 0.55
 s.maj_shift = (0.0, 0.0)
-s.pen.thickness = 0.003
+s.maj_ticks.pen.thickness = 0.003
 s.maj_ticks.count = 9
 s.maj_ticks.label_font.size = 0.07
 s.maj_ticks.length = 0.08
@@ -710,7 +750,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
 s.font.size = 0.05
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (10.0, 100.0)
 s.label.text = ""  # C2
 s.label.position = (0.0, 0.0)
@@ -745,7 +785,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
 s.font.size = 0.08
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "D"
 s.label.position = (0.78, -0.1)
@@ -765,7 +805,7 @@ s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
 s.font.size = 0.05
-s.type = gauge.scale.Type.LOGARITHMIC
+s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (10.0, 100.0)
 s.label.text = ""  # D2
 s.label.rotation = math.pi
