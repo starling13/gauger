@@ -22,7 +22,8 @@ class Type(enum.Enum):
 
 class Object:
     def __init__(self) -> None:
-        self.type: Type = Type.LINEAR
+        # Type of the scale
+        self.__type: Type = Type.LINEAR
 
         self.pen: gauge.Pen = gauge.Pen()
         # Position of the scale on gauge [(-1;-1) ; (1;1)]
@@ -51,6 +52,13 @@ class Object:
         self.color = (0.0, 0.0, 0.0, 1.0)
         #
         self.label: gauge.Label = gauge.Label()
+
+    @property
+    def type(self) -> Type:
+        return self.__type
+
+    def set_type(self, new_val: Type) -> None:
+        self.__type = new_val
 
     def add_minor_ticks(self, ticks: gauge.Ticks) -> None:
         self.min_ticks.append(ticks)

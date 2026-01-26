@@ -16,10 +16,17 @@ import gauge.scale
 class Object:
     def __init__(self) -> None:
         self.pen: gauge.Pen = gauge.Pen()
-        self.radius: float = 0.98
+        self.__radius: float = 0.98
         self.scales: list[gauge.scale.Object] = []
         self.size: tuple[int, int] = (800, 800)
         self.label: gauge.Label = gauge.Label()
+
+    @property
+    def radius(self) -> float:
+        return self.__radius
+
+    def set_radius(self, new_val: float) -> None:
+        self.__radius = new_val
 
     def add_scale(self, scale_object: gauge.scale.Object) -> None:
         self.scales.append(scale_object)
@@ -47,7 +54,7 @@ class Object:
                 raise Exception(
                     "The 'radius' field in 'gauge' object is not float value"
                 )
-            self.radius = radius_o
+            self.set_radius(radius_o)
 
         scales_o = data.get("scales")
         if scales_o is None:
