@@ -214,18 +214,26 @@ class Object:
         @param obj -- Gauge object
         @param file_path -- path to the SVG-file
         """
+        # Cairo surface of given size with the given file path
         surface: cairo.SVGSurface = cairo.SVGSurface(
             file_path, obj.size[0], obj.size[1]
         )
+        # Set size units
         surface.set_document_unit(cairo.SVG_UNIT_PX)
+        # Drawing context
         context: cairo.Context = cairo.Context(surface)
-
-        # Make gauge area coordinates [-1; 1]
+        # Make gauge area boundaries coordinates [-1; 1]
         context.scale(obj.size[0] / 2.0, -obj.size[1] / 2.0)
         context.translate(1, -1)
-
-        # Gauge border
+        # Gauge border:
+        # Line using gauge pen
         context.set_line_width(obj.pen.thickness)
+        context.set_source_rgba(
+            obj.pen.color.color[0],
+            obj.pen.color.color[1],
+            obj.pen.color.color[2],
+            obj.pen.color.color[3],
+        )
         context.arc(0, 0, obj.radius, 0, 2 * math.pi)
         context.stroke()
 
