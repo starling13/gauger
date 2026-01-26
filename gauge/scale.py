@@ -146,7 +146,11 @@ class Object:
 
     def get_angle(self, val: float) -> float:
         # Clamp value to the scale range
-        i_val: float = gauge.clamp(val, self.range[0], self.range[1])
+        i_val: float = gauge.clamp(
+            val,
+            min(self.range[0], self.range[1]),
+            max(self.range[0], self.range[1]),
+        )
         # Normalize value
         norm_val: float = gauge.normalize(i_val, self.range[0], self.range[1])
         if self.type == Type.LOGARITHMIC:

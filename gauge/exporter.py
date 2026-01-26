@@ -136,7 +136,13 @@ class Object:
                 c_pos: float = pos
                 for j in range(1, mt.count + 1):
                     c_pos = pos + j * c_step
-                    if mt.range[0] > c_pos or mt.range[1] <= c_pos:
+                    if (
+                        (mt.range[0] < mt.range[1])
+                        and (mt.range[0] > c_pos or mt.range[1] <= c_pos)
+                    ) or (
+                        (mt.range[0] >= mt.range[1])
+                        and (mt.range[0] < c_pos or mt.range[1] >= c_pos)
+                    ):
                         continue
                     c_angle = s.get_angle(c_pos)
                     context.save()
