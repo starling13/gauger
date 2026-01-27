@@ -9,6 +9,7 @@
 
 import enum
 import logging
+import math
 
 
 class FixedColor(enum.Enum):
@@ -104,6 +105,16 @@ class Font:
         """
         return self.__face
 
+    def set_face(self, new_val: FontFace) -> None:
+        self.__face = new_val
+
+    @property
+    def size(self) -> float:
+        return self.__size
+
+    def set_size(self, new_val: float) -> None:
+        self.__size = new_val
+
     def from_dict(self, data) -> None:
         # Face property
         face_o = data.get("face")
@@ -124,19 +135,19 @@ class Font:
                 face = FontFace.MONO
             else:
                 raise Exception(f"Value '{face_o}' is unknown font face")
-            self.face = face
+            self.__face = face
 
         # Size property
         size_o = data.get("size")
         if size_o is None:
             logging.warning("No 'size' field in 'font' object")
         else:
-            if not isinstance(face_o, str):
+            if not isinstance(size_o, float):
                 raise Exception(
                     "The 'size' field in 'font' object is not a floating point"
                     " real value"
                 )
-            self.size = size_o
+            self.__size = size_o
 
 
 class Color:
@@ -161,12 +172,20 @@ class Color:
 
 
 class Pen:
+    """
+    @brief Pen object
+    """
+
     def __init__(self) -> None:
         self.color = Color.create_from_fixed(FixedColor.BLACK)
         self.thickness = 0.01
 
 
 class Label:
+    """
+    @brief Label for the gauge or scale object
+    """
+
     def __init__(self) -> None:
         self.text: str = ""
         self.position: tuple[float, float] = (0.0, 0.0)
@@ -211,6 +230,10 @@ class Label:
 
 
 class Ticks:
+    """
+    @brief Regular ticks for the scale
+    """
+
     def __init__(self) -> None:
         self.count = 1
         self.length = 0.1
@@ -218,7 +241,7 @@ class Ticks:
         self.pen: Pen = Pen()
         self.range: tuple[float, float] = (0.0, 1.0)
         self.label_range: tuple[float, float] = (0.0, 1.0)
-        self.label_angle: float = -1.0
+        self.label_angle: float = math.nan
         self.label_font: Font = Font()
         self.label_prec: tuple[int, int] = (2, 2)
         self.draw_labels: bool = False
@@ -269,7 +292,7 @@ class Ticks:
         else:
             if (
                 (not isinstance(label_prec_o, list))
-                or len(label_range_o) != 2
+                or len(label_prec_o) != 2
                 or (not all(isinstance(x, int) for x in label_prec_o))
             ):
                 raise Exception(

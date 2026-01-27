@@ -33,7 +33,7 @@ s.span = math.pi * 2.0
 s.label_radius = 0.9
 s.maj_ticks.pen.thickness = 0.006
 s.maj_ticks.length = 0.06
-s.maj_ticks.label_font.size = 0.05
+s.maj_ticks.label_font.set_size(0.05)
 s.maj_ticks.label_angle = 3.0 * math.pi / 2.0
 s.maj_ticks.label_prec = (0, 3)
 s.maj_ticks.count = 36
@@ -64,7 +64,7 @@ scale1 = gauge.scale.Object()
 scale1.rotation = -0.3
 scale1.set_range(1, 3000)
 scale1.maj_ticks.count = 20
-scale1.maj_ticks.label_font.size = 0.05
+scale1.maj_ticks.label_font.set_size(0.05)
 scale1.label_radius = 0.8
 scale1.span = 20.0
 scale1.narrowing = 0.035
@@ -94,7 +94,7 @@ exporter.export(obj=gauge1, file_path="/tmp/gauge1.svg")
 o = gauge.round_gauge.Object()
 o.label.text = "Circular slide rule"
 o.label.position = (-0.3, -0.1)
-o.label.font.size = 0.075
+o.label.font.set_size(0.075)
 o.pen.color.from_fixed(gauge.FixedColor.BLACK)
 o.pen.thickness = 0.005
 o.size = (4096, 4096)
@@ -102,19 +102,19 @@ o.size = (4096, 4096)
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
-s.font.size = 0.05
+s.font.set_size(0.05)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "C"
 s.label.position = (0.77, -0.07)
 s.label.rotation = math.pi / 2.0
-s.label.font.size = 0.075
+s.label.font.set_size(0.075)
 s.span = math.pi * 2
 s.label_radius = 0.71
 s.maj_shift = (0.0, 0.0)
 s.maj_ticks.pen.thickness = 0.005
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.06
+s.maj_ticks.label_font.set_size(0.06)
 s.maj_ticks.length = 0.08
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 2.0
@@ -128,7 +128,7 @@ t1.length = 0.06
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
 
@@ -173,20 +173,20 @@ s.min_ticks.append(t5)
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
-s.font.size = 0.03
+s.font.set_size(0.03)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.maj_ticks.count = 9
 s.maj_ticks.length = -0.09
 s.label.text = "D"
-s.label.font.size = 0.075
+s.label.font.set_size(0.075)
 s.label.position = (0.91, -0.07)
 s.label.rotation = math.pi / 2.0
 s.span = math.pi * 2
 s.label_radius = 0.94
 s.maj_ticks.pen.thickness = 0.0035
 s.maj_ticks.label_prec = (0, 1)
-s.maj_ticks.label_font.size = 0.07
+s.maj_ticks.label_font.set_size(0.07)
 s.maj_ticks.label_angle = math.pi / 2.0
 s.maj_ticks.label_range = (1.0, 9.0)
 
@@ -197,7 +197,7 @@ t1.length = -0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 10.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
@@ -244,17 +244,17 @@ s.set_range(1.0, 10.0)
 s.radius = 0.665
 s.label.text = "A"
 s.label.position = (0.6, -0.07)
-s.label.font.size = 0.075
+s.label.font.set_size(0.075)
 s.label.rotation = math.pi / 2.0
 s.maj_ticks.pen.thickness = 0.004
 s.span = math.pi
-s.font.size = 0.04
+s.font.set_size(0.04)
 s.label_radius = 0.55
 s.maj_ticks.length = 0.09
 s.maj_ticks.label_range = (1.0, 10.0)
 s.maj_ticks.label_prec = (0, 2)
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.05
+s.maj_ticks.label_font.set_size(0.05)
 s.maj_ticks.label_angle = math.pi / 2.0
 
 t1 = gauge.Ticks()
@@ -264,7 +264,7 @@ t1.length = 0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 7.5)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
@@ -300,12 +300,12 @@ s.label.text = ""  # A
 s.maj_ticks.pen.thickness = 0.004
 s.span = math.pi
 s.rotation = math.pi
-s.font.size = 0.04
+s.font.set_size(0.04)
 s.label_radius = 0.55
 s.maj_ticks.length = 0.09
 s.maj_ticks.label_range = (20.0, 90.0)
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.05
+s.maj_ticks.label_font.set_size(0.05)
 s.maj_ticks.label_angle = math.pi / 2.0
 
 t1 = gauge.Ticks()
@@ -315,7 +315,7 @@ t1.length = 0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (10.0, 75.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (2, 2)
 s.min_ticks.append(t1)
@@ -349,17 +349,17 @@ s.set_range(1.0, 10.0)
 s.radius = 0.52
 s.label.text = "K"
 s.label.position = (0.45, -0.07)
-s.label.font.size = 0.075
+s.label.font.set_size(0.075)
 s.label.rotation = math.pi / 2.0
 s.maj_ticks.pen.thickness = 0.003
 s.span = 2.0 / 3.0 * math.pi
-s.font.size = 0.04
+s.font.set_size(0.04)
 s.label_radius = 0.4
 s.maj_ticks.length = 0.09
 s.maj_ticks.label_range = (1.0, 9.0)
 s.maj_ticks.label_prec = (0, 2)
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.04
+s.maj_ticks.label_font.set_size(0.04)
 s.maj_ticks.label_angle = math.pi / 2.0
 
 t1 = gauge.Ticks()
@@ -369,7 +369,7 @@ t1.length = 0.07
 t1.pen.thickness = 0.003
 t1.draw_labels = True
 t1.label_range = (1.0, 4.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (1, 2)
 s.min_ticks.append(t1)
@@ -407,13 +407,13 @@ s.label.rotation = math.pi / 2.0
 s.maj_ticks.pen.thickness = 0.003
 s.rotation = 2.0 / 3.0 * math.pi
 s.span = 2.0 / 3.0 * math.pi
-s.font.size = 0.04
+s.font.set_size(0.04)
 s.label_radius = 0.4
 s.maj_ticks.length = 0.09
 s.maj_ticks.label_range = (10.0, 80.0)
 s.maj_ticks.label_prec = (0, 2)
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.04
+s.maj_ticks.label_font.set_size(0.04)
 s.maj_ticks.label_angle = math.pi / 2.0
 
 t1 = gauge.Ticks()
@@ -423,7 +423,7 @@ t1.length = 0.07
 t1.pen.thickness = 0.002
 t1.draw_labels = True
 t1.label_range = (10.0, 30.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (2, 3)
 s.min_ticks.append(t1)
@@ -461,13 +461,13 @@ s.label.rotation = math.pi / 2.0
 s.maj_ticks.pen.thickness = 0.003
 s.rotation = 4.0 / 3.0 * math.pi
 s.span = 2.0 / 3.0 * math.pi
-s.font.size = 0.04
+s.font.set_size(0.04)
 s.label_radius = 0.4
 s.maj_ticks.length = 0.09
 s.maj_ticks.label_range = (100.0, 600.0)
 s.maj_ticks.label_prec = (3, 3)
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.04
+s.maj_ticks.label_font.set_size(0.04)
 s.maj_ticks.label_angle = math.pi / 2.0
 
 t1 = gauge.Ticks()
@@ -477,7 +477,7 @@ t1.length = 0.07
 t1.pen.thickness = 0.002
 t1.draw_labels = True
 t1.label_range = (100.0, 200.0)
-t1.label_font.size = 0.03
+t1.label_font.set_size(0.03)
 t1.label_angle = math.pi / 2.0
 t1.label_prec = (3, 3)
 s.min_ticks.append(t1)
@@ -578,11 +578,11 @@ s.maj_ticks.count = 12
 s.maj_ticks.length = 0.1
 s.maj_ticks.label_range = (1.0, 12.0)
 s.maj_ticks.label_prec = (1, 2)
-s.maj_ticks.label_font.size = 0.15
-s.maj_ticks.label_font.face = gauge.FontFace.SANS
+s.maj_ticks.label_font.set_size(0.15)
+s.maj_ticks.label_font.set_face(gauge.FontFace.SANS)
 s.label.text = "Toy clock"
 s.label.position = (-0.25, -0.5)
-s.label.font.face = gauge.FontFace.SERIF
+s.label.font.set_face(gauge.FontFace.SERIF)
 mt = gauge.Ticks()
 s.add_minor_ticks(ticks=mt)
 mt.count = 4
@@ -618,9 +618,9 @@ s.maj_ticks.label_range = (1.0, 24.0)
 # Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
 s.maj_ticks.label_prec = (1, 2)
 # Relative size of the hour labels font
-s.maj_ticks.label_font.size = 0.11
+s.maj_ticks.label_font.set_size(0.11)
 # Face of the hour labels font
-s.maj_ticks.label_font.face = gauge.FontFace.SANS
+s.maj_ticks.label_font.set_face(gauge.FontFace.SANS)
 # Set radius of the virtual circle along which labels are placed
 s.label_radius = 0.75
 
@@ -629,7 +629,7 @@ s.label.text = "Tank clock"
 # Common label position
 s.label.position = (-0.3, 0.4)
 # Font face for common label
-s.label.font.face = gauge.FontFace.MONO
+s.label.font.set_face(gauge.FontFace.MONO)
 
 # Minor ticks object
 mt = gauge.Ticks()
@@ -642,7 +642,7 @@ mt.length = 0.06
 # Draw labels on minor ticks
 mt.draw_labels = True
 # Font size of the minor ticks is slighter smaller the in major ones
-mt.label_font.size = 0.075
+mt.label_font.set_size(0.075)
 # Minor ticks span range from 0 to 24, so to add mark on 1 hour
 mt.label_range = (0.0, 24.0)
 # Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
@@ -712,7 +712,7 @@ s.range = (0, 1.0e10)
 s.maj_ticks.count = 9
 s.radius = 0.8
 s.label_radius = 0.6
-s.font.size = 0.05
+s.font.set_size(0.05)
 s.maj_shift = (-0.05, -0.025)
 o.scales.append(s)
 e.export(o, "/tmp/4.svg")
@@ -721,7 +721,7 @@ e.export(o, "/tmp/4.svg")
 o = gauge.round_gauge.Object()
 o.label.text = "Логарифмический умножитель"
 o.label.position = (-0.45, -0.1)
-o.label.font.size = 0.065
+o.label.font.set_size(0.065)
 o.pen.color.from_fixed(gauge.FixedColor.BLACK)
 o.pen.thickness = 0.005
 o.size = (4096, 4096)
@@ -729,7 +729,7 @@ o.size = (4096, 4096)
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
-s.font.size = 0.08
+s.font.set_size(0.08)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "C"
@@ -740,7 +740,7 @@ s.label_radius = 0.55
 s.maj_shift = (0.0, 0.0)
 s.maj_ticks.pen.thickness = 0.003
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.07
+s.maj_ticks.label_font.set_size(0.07)
 s.maj_ticks.length = 0.08
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 4.0
@@ -749,7 +749,7 @@ s.maj_ticks.label_range = (1.0, 9.0)
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
-s.font.size = 0.05
+s.font.set_size(0.05)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (10.0, 100.0)
 s.label.text = ""  # C2
@@ -761,7 +761,7 @@ s.label_radius = 0.55
 s.maj_shift = (0.0, 0.0)
 s.pen.thickness = 0.006
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.07
+s.maj_ticks.label_font.set_size(0.07)
 s.maj_ticks.length = 0.08
 s.maj_ticks.label_prec = (2, 2)
 s.maj_ticks.label_angle = math.pi / 4.0
@@ -784,7 +784,7 @@ mt.pen.thickness = 0.005
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
-s.font.size = 0.08
+s.font.set_size(0.08)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
 s.label.text = "D"
@@ -795,7 +795,7 @@ s.label_radius = 0.87
 s.maj_shift = (0.0, 0.0)
 s.pen.thickness = 0.003
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.08
+s.maj_ticks.label_font.set_size(0.08)
 s.maj_ticks.length = -0.1
 s.maj_ticks.label_prec = (0, 1)
 s.maj_ticks.label_angle = math.pi / 4.0
@@ -804,7 +804,7 @@ s.maj_ticks.label_range = (1.0, 9.0)
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.7
-s.font.size = 0.05
+s.font.set_size(0.05)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (10.0, 100.0)
 s.label.text = ""  # D2
@@ -815,7 +815,7 @@ s.label_radius = 0.87
 s.maj_shift = (0.0, 0.0)
 s.pen.thickness = 0.006
 s.maj_ticks.count = 9
-s.maj_ticks.label_font.size = 0.08
+s.maj_ticks.label_font.set_size(0.08)
 s.maj_ticks.length = -0.1
 s.maj_ticks.label_prec = (2, 2)
 s.maj_ticks.label_angle = math.pi / 4.0
@@ -836,3 +836,4 @@ mt.range = (10.0, 100.0)
 mt.pen.thickness = 0.005
 
 e.export(o, "/tmp/kolya_rule.svg")
+e.export(o, "/tmp/kolya_rule.png")

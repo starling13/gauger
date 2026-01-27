@@ -14,8 +14,13 @@ import gauge.scale
 
 
 class Object:
+    """
+    @brief Round-shaped gauge object
+    """
+
     def __init__(self) -> None:
         self.pen: gauge.Pen = gauge.Pen()
+        # Radius of the entire gauge
         self.__radius: float = 0.98
         self.scales: list[gauge.scale.Object] = []
         self.size: tuple[int, int] = (800, 800)

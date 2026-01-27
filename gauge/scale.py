@@ -15,6 +15,10 @@ import gauge
 
 
 class Type(enum.Enum):
+    """
+    @brief Scale type
+    """
+
     LINEAR = 1
     LOGARITHMIC = 2
     EXPONENTIAL = 3
@@ -24,7 +28,7 @@ class Object:
     def __init__(self) -> None:
         # Type of the scale
         self.__type: Type = Type.LINEAR
-
+        # Pen for the scale
         self.pen: gauge.Pen = gauge.Pen()
         # Position of the scale on gauge [(-1;-1) ; (1;1)]
         self.position = (0.0, 0.0)

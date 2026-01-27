@@ -8,6 +8,7 @@
 """
 
 import math
+import os
 
 import cairo
 
@@ -41,6 +42,7 @@ class Object:
 
         context.save()
         if math.isnan(s.narrowing):
+            # there is no narrowing facter set, use simple arc
             context.arc(
                 0.0,
                 0.0,
@@ -49,6 +51,7 @@ class Object:
                 arc_end,
             )
         else:
+            # If narrowing factor used, draw spiral
             r = s.radius
             a = arc_start
             # context.rotate(-arc_start)
@@ -114,7 +117,7 @@ class Object:
                 if not math.isnan(s.narrowing):
                     r -= s.narrowing * angle
                 context.translate(r, 0.0)
-                if s.maj_ticks.label_angle < 0.0:
+                if math.isnan(s.maj_ticks.label_angle):
                     context.rotate(angle + s.rotation)
                 else:
                     context.rotate(s.maj_ticks.label_angle)
@@ -158,7 +161,7 @@ class Object:
                     ):
                         context.save()
                         context.translate(s.label_radius, 0.0)
-                        if mt.label_angle < 0.0:
+                        if math.isnan(mt.label_angle):
                             context.rotate(c_angle + s.rotation)
                         else:
                             context.rotate(mt.label_angle)
@@ -214,12 +217,21 @@ class Object:
         @param obj -- Gauge object
         @param file_path -- path to the SVG-file
         """
+        res = os.path.splitext(file_path)
+
         # Cairo surface of given size with the given file path
-        surface: cairo.SVGSurface = cairo.SVGSurface(
-            file_path, obj.size[0], obj.size[1]
-        )
-        # Set size units
-        surface.set_document_unit(cairo.SVG_UNIT_PX)
+        if res[1].lower() == ".svg":
+            surface: cairo.SVGSurface = cairo.SVGSurface(
+                file_path, obj.size[0], obj.size[1]
+            )
+            # Set size units
+            surface.set_document_unit(cairo.SVG_UNIT_PX)
+        elif res[1].lower() == ".png":
+            surface: cairo.ImageSurface = cairo.ImageSurface(
+                cairo.FORMAT_ARGB32, obj.size[0], obj.size[1]
+            )
+        else:
+            return
         # Drawing context
         context: cairo.Context = cairo.Context(surface)
         # Make gauge area boundaries coordinates [-1; 1]
@@ -261,3 +273,6 @@ class Object:
             context.new_path()
             self._draw_scale(s, context)
             context.restore()
+
+        if res[1].lower() == ".png":
+            surface.write_to_png(file_path)
