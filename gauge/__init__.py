@@ -12,6 +12,12 @@ import logging
 
 
 class FixedColor(enum.Enum):
+    """
+    @brief Fixed colors enumeration
+
+    Includes 16 colors from CGA palette
+    """
+
     BLACK = 0
     BLUE = 1
     GREEN = 2
@@ -72,6 +78,10 @@ _fixed_colors: list[tuple[float, float, float, float]] = [
 
 
 class FontFace(enum.Enum):
+    """
+    @brief Font face enumeration
+    """
+
     NONE = 0
     SANS = 1
     SERIF = 2
@@ -79,9 +89,20 @@ class FontFace(enum.Enum):
 
 
 class Font:
+    """
+    @brief Class of the font object
+    """
+
     def __init__(self) -> None:
-        self.face: FontFace = FontFace.SANS
-        self.size: float = 0.1
+        self.__face: FontFace = FontFace.SANS
+        self.__size: float = 0.1
+
+    @property
+    def face(self) -> FontFace:
+        """
+        Font visual face
+        """
+        return self.__face
 
     def from_dict(self, data) -> None:
         # Face property
