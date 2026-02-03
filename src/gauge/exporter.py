@@ -225,7 +225,8 @@ class Object:
                 file_path, obj.size[0], obj.size[1]
             )
             # Set size units
-            surface.set_document_unit(cairo.SVG_UNIT_PX)
+            if hasattr(surface, "set_document_unit"):
+                surface.set_document_unit(cairo.SVG_UNIT_PX)
         elif res[1].lower() == ".png":
             surface: cairo.ImageSurface = cairo.ImageSurface(
                 cairo.FORMAT_ARGB32, obj.size[0], obj.size[1]

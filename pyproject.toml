@@ -1,0 +1,22 @@
+[project]
+name = "gauger"
+version = "0.1.0"
+authors = [
+  { name="Andrey V. Skvortsov", email="starling13@gmail.com" },
+]
+description = "A set of library and scripts to make images of the round gauges with complex scales."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.scripts]
+gauge-make = "gauger.gauge_make:main"
+
+[project.urls]
+Homepage = "https://github.com/starling13/gauger"
+Issues = "https://github.com/starling13/gauger/issues"

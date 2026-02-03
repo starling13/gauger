@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Copyright (c) 2025 Andrey V. Skvortsov
 
 # This work is licensed under the terms of the MIT license.
@@ -40,7 +42,8 @@ def import_gauge_from_yaml(file_path: str) -> gauge.round_gauge.Object:
     return g
 
 
-def _main(argv: list[str]) -> int:
+def main() -> None:
+    argv: list[str] = sys.argv
     parser: argparse.ArgumentParser
     args: argparse.Namespace
     rg: gauge.round_gauge.Object
@@ -68,13 +71,10 @@ def _main(argv: list[str]) -> int:
         rg = import_gauge_from_yaml(args.gauge_file)
     except Exception as e:
         logging.critical(f"Error: {e}")
-        return 1
 
     exp = gauge.exporter.Object()
     exp.export(rg, args.gauge_image)
 
-    return 0
-
 
 if __name__ == "__main__":
-    sys.exit(_main(argv=sys.argv))
+    main()
