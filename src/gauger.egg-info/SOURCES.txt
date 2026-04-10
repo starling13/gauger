@@ -1,0 +1,14 @@
+LICENSE
+README.md
+pyproject.toml
+src/gauge/__init__.py
+src/gauge/__main__.py
+src/gauge/exporter.py
+src/gauge/gauge_make.py
+src/gauge/round_gauge.py
+src/gauge/scale.py
+src/gauger.egg-info/PKG-INFO
+src/gauger.egg-info/SOURCES.txt
+src/gauger.egg-info/dependency_links.txt
+src/gauger.egg-info/entry_points.txt
+src/gauger.egg-info/top_level.txt

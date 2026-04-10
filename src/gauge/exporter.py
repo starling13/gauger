@@ -50,6 +50,53 @@ class Object:
                 arc_start,
                 arc_end,
             )
+            context.stroke()
+            for sec in s.sectors:
+                context.save()
+                sec_begin = s.get_angle(val=sec.range[0])
+                sec_end = s.get_angle(val=sec.range[1])
+                print(math.degrees(sec_begin))
+                print(math.degrees(sec_end))
+                sec_span = sec_end - sec_begin
+                sb = sec_begin
+                sec_begin -= 2 * sb + sec_span
+                sec_end -= 2 * sb + sec_span
+                print(math.degrees(sec_begin))
+                print(math.degrees(sec_end))
+                print()
+                context.set_source_rgba(
+                    sec.color.color[0],
+                    sec.color.color[1],
+                    sec.color.color[2],
+                    sec.color.color[3],
+                )
+                context.arc(
+                    0.0,
+                    0.0,
+                    sec.radius_range[0],
+                    sec_begin,
+                    sec_end,
+                )
+                secx = sec.radius_range[1] * math.cos(sec_end)
+                secy = sec.radius_range[1] * math.sin(sec_end)
+                context.line_to(secx, secy)
+                context.arc_negative(
+                    0.0,
+                    0.0,
+                    sec.radius_range[1],
+                    sec_end,
+                    sec_begin,
+                )
+                secx = sec.radius_range[1] * math.cos(sec_begin)
+                secy = sec.radius_range[1] * math.sin(sec_begin)
+                context.move_to(secx, secy)
+                secx = sec.radius_range[0] * math.cos(sec_begin)
+                secy = sec.radius_range[0] * math.sin(sec_begin)
+                context.line_to(secx, secy)
+                context.close_path()
+                context.fill()
+                # context.stroke()
+                context.restore()
         else:
             # If narrowing factor used, draw spiral
             r = s.radius
@@ -72,12 +119,14 @@ class Object:
                 a += da
                 if ef:
                     break
+                context.stroke()
 
-        context.stroke()
         context.restore()
 
-        pos = s.range[0]
-        step = (s.range[1] - s.range[0]) / (s.maj_ticks.count)
+        pos = s.maj_ticks.range[0]
+        step = (s.maj_ticks.range[1] - s.maj_ticks.range[0]) / (
+            s.maj_ticks.count
+        )
 
         i: int = 0
         while i <= s.maj_ticks.count:
@@ -180,7 +229,7 @@ class Object:
                     context.restore()
 
             i += 1
-            pos = s.range[0] + i * step
+            pos = s.maj_ticks.range[0] + i * step
 
     def _draw_labels(
         self, s: gauge.scale.Object, context: cairo.Context

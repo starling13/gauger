@@ -15,6 +15,86 @@ import gauge.scale
 
 exporter = gauge.exporter.Object()
 
+thermometer = gauge.round_gauge.Object()
+thermometer.size = (1024, 1024)
+thermometer.set_radius(0.99)
+
+s = gauge.scale.Object()
+thermometer.add_scale(s)
+s.rotation = 0.0
+s.radius = 0.8
+s.pen.thickness = 0.005
+s.set_range(10.0, 410.0)
+
+sec = gauge.scale.ScaleSector()
+sec.range = (10.0, 30.0)
+sec.radius_range = (0.3, 0.97)
+sec.color = gauge.Color.create_from_fixed(fc=gauge.FixedColor.LIGHT_CYAN)
+s.add_sector(sec)
+sec = gauge.scale.ScaleSector()
+sec.range = (100.0, 250.0)
+sec.radius_range = (0.3, 0.97)
+sec.color = gauge.Color.create_from_fixed(fc=gauge.FixedColor.LIGHT_MAGENTA)
+s.add_sector(sec)
+
+s.span = math.pi * 1.9
+s.label_radius = 0.91
+s.maj_ticks.label_font.set_face(gauge.FontFace.SERIF)
+s.maj_ticks.pen.thickness = 0.006
+s.maj_ticks.length = -0.05
+s.maj_ticks.label_font.set_size(0.05)
+# s.maj_ticks.label_angle = 3.0 * math.pi / 2.0
+s.maj_ticks.label_prec = (0, 3)
+s.maj_ticks.count = 19
+s.maj_ticks.range = (20.0, 400.0)
+s.maj_ticks.label_range = (20.0, 510.0)
+
+mt1 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt1)
+mt1.count = 9
+mt1.length = -0.02
+mt1.pen.thickness = 0.003
+
+mt2 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt2)
+mt2.count = 1
+mt2.length = -0.04
+mt2.pen.thickness = 0.004
+
+s = gauge.scale.Object()
+thermometer.add_scale(s)
+s.rotation = 0.0
+s.radius = 0.79
+s.pen.thickness = 0.005
+
+s.set_range(50.0, 770.0)
+s.span = math.pi * 1.9
+s.label_radius = 0.67
+s.maj_ticks.label_font.set_face(gauge.FontFace.SERIF)
+s.maj_ticks.pen.thickness = 0.006
+s.maj_ticks.length = 0.05
+s.maj_ticks.label_font.set_size(0.05)
+# s.maj_ticks.label_angle = 3.0 * math.pi / 2.0
+s.maj_ticks.label_prec = (0, 3)
+s.maj_ticks.count = 23
+s.maj_ticks.range = (60.0, 750.0)
+s.maj_ticks.label_range = (60.0, 750.0)
+
+mt1 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt1)
+mt1.count = 5
+mt1.length = 0.02
+mt1.pen.thickness = 0.003
+
+mt2 = gauge.Ticks()
+s.add_minor_ticks(ticks=mt2)
+mt2.count = 2
+mt2.length = 0.04
+mt2.pen.thickness = 0.004
+
+exporter.export(thermometer, "/tmp/BWR_thermo.svg")
+
+
 """
 Naval astrolabe
 """
@@ -58,6 +138,7 @@ exporter.export(obj=sq_gauge, file_path="/tmp/naval_astrolabe.svg")
 Spiral scale
 """
 
+"""
 sq_gauge = gauge.round_gauge.Object()
 
 scale1 = gauge.scale.Object()
@@ -73,10 +154,9 @@ scale1.maj_ticks.label_angle = math.pi / 2.0
 sq_gauge.add_scale(scale1)
 
 exporter.export(obj=sq_gauge, file_path="/tmp/sq_gauge.svg")
-
-"""
 """
 
+"""
 gauge1 = gauge.round_gauge.Object()
 
 scale1 = gauge.scale.Object()
@@ -90,7 +170,9 @@ mt1.count = 1
 
 exporter = gauge.exporter.Object()
 exporter.export(obj=gauge1, file_path="/tmp/gauge1.svg")
+"""
 
+"""
 o = gauge.round_gauge.Object()
 o.label.text = "Circular slide rule"
 o.label.position = (-0.3, -0.1)
@@ -98,10 +180,12 @@ o.label.font.set_size(0.075)
 o.pen.color.from_fixed(gauge.FixedColor.BLACK)
 o.pen.thickness = 0.005
 o.size = (4096, 4096)
+o.pen.thickness = 0.0025
 
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
+s.pen.thickness = 0.0025
 s.font.set_size(0.05)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
@@ -169,10 +253,10 @@ t5.length = 0.04
 t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
 
-
 s = gauge.scale.Object()
 o.add_scale(s)
 s.radius = 0.82
+s.pen.thickness = 0.0025
 s.font.set_size(0.03)
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.range = (1.0, 10.0)
@@ -237,11 +321,11 @@ t5.length = -0.04
 t5.pen.thickness = 0.0015
 s.min_ticks.append(t5)
 
-
 s = gauge.scale.Object()
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(1.0, 10.0)
 s.radius = 0.665
+s.pen.thickness = 0.0025
 s.label.text = "A"
 s.label.position = (0.6, -0.07)
 s.label.font.set_size(0.075)
@@ -296,6 +380,7 @@ s = gauge.scale.Object()
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(10.0, 100.0)
 s.radius = 0.665
+s.pen.thickness = 0.0025
 s.label.text = ""  # A
 s.maj_ticks.pen.thickness = 0.004
 s.span = math.pi
@@ -347,6 +432,7 @@ s = gauge.scale.Object()
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(1.0, 10.0)
 s.radius = 0.52
+s.pen.thickness = 0.0025
 s.label.text = "K"
 s.label.position = (0.45, -0.07)
 s.label.font.set_size(0.075)
@@ -362,6 +448,7 @@ s.maj_ticks.count = 9
 s.maj_ticks.label_font.set_size(0.04)
 s.maj_ticks.label_angle = math.pi / 2.0
 
+quit(0)
 t1 = gauge.Ticks()
 t1.range = (1.0, 10.0)
 t1.count = 1
@@ -401,6 +488,7 @@ s = gauge.scale.Object()
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(10.0, 100.0)
 s.radius = 0.52
+s.pen.thickness = 0.0025
 s.label.text = ""  # K2
 s.label.position = (0.4, -0.05)
 s.label.rotation = math.pi / 2.0
@@ -455,6 +543,7 @@ s = gauge.scale.Object()
 s.set_type(gauge.scale.Type.LOGARITHMIC)
 s.set_range(100.0, 1000.0)
 s.radius = 0.52
+s.pen.thickness = 0.0025
 s.label.text = ""  # K3
 s.label.position = (0.4, -0.05)
 s.label.rotation = math.pi / 2.0
@@ -507,6 +596,7 @@ o.add_scale(s)
 
 e = gauge.exporter.Object()
 e.export(o, "/tmp/ruler2.svg")
+"""
 
 """
 o = gauge.round_gauge.Object()
@@ -565,6 +655,7 @@ e = gauge.exporter.Object()
 e.export(o, "/tmp/manometer.svg")
 """
 
+"""
 o = gauge.round_gauge.Object()
 
 s = gauge.scale.Object()
@@ -591,28 +682,28 @@ mt.length = 0.05
 
 e = gauge.exporter.Object()
 e.export(o, "/tmp/clock.svg")
+"""
 
-
-# Main object for gauge
+# Create and initialize the main gauge object
 o = gauge.round_gauge.Object()
 
-# Main 24-hour scale of the clock
+# Create the primary 24-hour scale
 s = gauge.scale.Object()
 # Add scale object to gauge before any other actions
 # because it changes some properties of the scale
 o.add_scale(scale_object=s)
-# Rotate 90 deg CCW to orient 12 hour tick up
+# Orient the scale: rotate 90° counter-clockwise so 12 o'clock points upward
 s.rotation = -math.pi / 2.0
-# Scale has a radius of 0.95 of image half
-s.radius = 0.95
-# Scale span is 360 deg - full circle
-s.span = math.pi * 2.0
-# Setting the range of the clock [1; 24] hours, (real numbers used!).
+
+# Configure scale geometry
+s.radius = 0.95  # Scale radius as fraction of half the image dimension
+s.span = math.pi * 2.0  # Full 360° circular scale
+
+# Define the value range: 0–24 hours (using floats here!)
 s.set_range(min_val=0.0, max_val=24.0)
-# Major tick and digit label on every 2 hours
-s.maj_ticks.count = 12
-# Major ticks length is ~ 0.1 of the gauge radius
-s.maj_ticks.length = 0.1
+
+s.maj_ticks.count = 12  # 12 major divisions (0, 2, 4, ..., 22)
+s.maj_ticks.length = 0.1  # Tick length
 # Major ticks span range from 1 to 24, excluding 0 which has 24 mark as scale spans whole 360 deg. circle.
 s.maj_ticks.label_range = (1.0, 24.0)
 # Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
@@ -648,33 +739,42 @@ mt.label_range = (0.0, 24.0)
 # Set precision of the hour digit labels: minimum 1 symbol, not longer then 2
 mt.label_prec = (1, 2)
 
-# mt = gauge.Ticks()
-# mt.count = 4
-# mt.length = 0.03
-# mt.range = (0.0, 24.0)
-# s.min_ticks.append(mt)
+# Minor ticks for main scale minutes:
+mt = gauge.Ticks()
+s.add_minor_ticks(ticks=mt)
+# 4 ticks forms 5 intervals for minutes between hour ticks
+mt.count = 4
+# Shorter then odd hours ticks
+mt.length = 0.04
 
-"""
+# Additional scale for stopwatch/timer
 s = gauge.scale.Object()
-s.rotation = math.pi / 2.0
+o.add_scale(s)
+s.rotation = -math.pi / 2.0
+# Auxilliary scale is shifted to the bottom
 s.position = (0, -0.3)
+# It's much smaller then main scale
 s.radius = 0.33
 s.span = math.pi * 2.0
+# Whole circle is 60 min/sec
 s.set_range(0.0, 60.0)
+# A dozen of 5-min/sec ticks
+s.maj_ticks.count = 12
+s.maj_ticks.label_prec = (1, 2)
+s.maj_ticks.label_range = (0.0, 55.0)
+
+# Ticks for single minutes/seconds
 mt = gauge.Ticks()
+s.add_minor_ticks(ticks=mt)
 mt.count = 4
 mt.length = 0.02
 mt.range = (0.0, 60.0)
-s.min_ticks.append(mt)
 s.maj_ticks.count = 12
 s.maj_ticks.length = 0.04
-s.maj_ticks.label_font.size = 0.02
+s.maj_ticks.label_font.set_size(0.06)
 s.label_radius = 0.23
-s.maj_shift = (-0.03, -0.02)
-o.add_scale(s)
-"""
 
-e.export(o, "/tmp/tank_clock.svg")
+exporter.export(o, "/tmp/tank_clock.svg")
 
 """
 o = gauge.round_gauge.Object()
@@ -715,9 +815,9 @@ s.label_radius = 0.6
 s.font.set_size(0.05)
 s.maj_shift = (-0.05, -0.025)
 o.scales.append(s)
-e.export(o, "/tmp/4.svg")
+exporter.export(o, "/tmp/4.svg")
 
-
+"""
 o = gauge.round_gauge.Object()
 o.label.text = "Логарифмический умножитель"
 o.label.position = (-0.45, -0.1)
@@ -837,3 +937,4 @@ mt.pen.thickness = 0.005
 
 e.export(o, "/tmp/kolya_rule.svg")
 e.export(o, "/tmp/kolya_rule.png")
+"""

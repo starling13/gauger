@@ -24,6 +24,15 @@ class Type(enum.Enum):
     EXPONENTIAL = 3
 
 
+class ScaleSector:
+    def __init__(self) -> None:
+        self.range: tuple[float, float] = (0.0, 0.0)
+        self.color: gauge.Color = gauge.Color.create_from_fixed(
+            gauge.FixedColor.CYAN
+        )
+        self.radius_range: tuple[float, float] = (0.0, 0.0)
+
+
 class Object:
     def __init__(self) -> None:
         # Type of the scale
@@ -56,6 +65,15 @@ class Object:
         self.color = (0.0, 0.0, 0.0, 1.0)
         #
         self.label: gauge.Label = gauge.Label()
+
+        self.__sectors: list[ScaleSector] = []
+
+    def add_sector(self, sector: ScaleSector) -> None:
+        self.__sectors.append(sector)
+
+    @property
+    def sectors(self) -> list[ScaleSector]:
+        return self.__sectors
 
     @property
     def type(self) -> Type:
