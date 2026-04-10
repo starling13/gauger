@@ -23,15 +23,24 @@ class Object:
         # Radius of the entire gauge
         self.__radius: float = 0.98
         self.scales: list[gauge.scale.Object] = []
-        self.size: tuple[int, int] = (800, 800)
+        self.__size: tuple[int, int] = (800, 800)
         self.label: gauge.Label = gauge.Label()
 
     @property
     def radius(self) -> float:
         return self.__radius
 
-    def set_radius(self, new_val: float) -> None:
+    @radius.setter
+    def radius(self, new_val: float) -> None:
         self.__radius = new_val
+
+    @property
+    def size(self) -> tuple[int, int]:
+        return self.__size
+
+    @size.setter
+    def size(self, new_val: tuple[int, int]) -> None:
+        self.__size = new_val
 
     def add_scale(self, scale_object: gauge.scale.Object) -> None:
         self.scales.append(scale_object)
@@ -46,7 +55,7 @@ class Object:
                 or len(size_o) != 2
                 or (not all(isinstance(x, int) for x in size_o))
             ):
-                raise Exception(
+                raise ValueError(
                     "The 'size' field in 'gauge' object is not a tuple of 2 integer values"
                 )
             self.size = (size_o[0], size_o[1])
@@ -56,10 +65,10 @@ class Object:
             logging.warning("No 'radius' field in 'gauge' object")
         else:
             if not isinstance(radius_o, float):
-                raise Exception(
+                raise ValueError(
                     "The 'radius' field in 'gauge' object is not float value"
                 )
-            self.set_radius(radius_o)
+            self.radius = radius_o
 
         scales_o = data.get("scales")
         if scales_o is None:
@@ -72,3 +81,10 @@ class Object:
                     scale_o.from_dict(v)
                 else:
                     logging.warning("Empty 'scale' object")
+
+        label_o = data.get("label")
+        if label_o is None:
+            logging.warning("No 'label' field in 'gauge' object")
+        else:
+            lo = gauge.Label()
+            lo.from_dict(label_o)

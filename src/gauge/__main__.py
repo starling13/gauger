@@ -8,6 +8,7 @@
 """
 
 import math
+import os
 
 import gauge.exporter
 import gauge.round_gauge
@@ -17,7 +18,7 @@ exporter = gauge.exporter.Object()
 
 thermometer = gauge.round_gauge.Object()
 thermometer.size = (1024, 1024)
-thermometer.set_radius(0.99)
+thermometer.radius = 0.99
 
 s = gauge.scale.Object()
 thermometer.add_scale(s)
@@ -92,7 +93,7 @@ mt2.count = 2
 mt2.length = 0.04
 mt2.pen.thickness = 0.004
 
-exporter.export(thermometer, "/tmp/BWR_thermo.svg")
+exporter.export(thermometer, "BWR_thermo.svg")
 
 
 """
@@ -101,7 +102,7 @@ Naval astrolabe
 
 sq_gauge = gauge.round_gauge.Object()
 sq_gauge.size = (1024, 1024)
-sq_gauge.set_radius(0.99)
+sq_gauge.radius = 0.99
 
 s = gauge.scale.Object()
 sq_gauge.add_scale(s)
@@ -131,7 +132,7 @@ mt2.count = 19
 mt2.length = 0.03
 mt2.pen.thickness = 0.003
 
-exporter.export(obj=sq_gauge, file_path="/tmp/naval_astrolabe.svg")
+exporter.export(obj=sq_gauge, file_path="naval_astrolabe.svg")
 
 
 """
@@ -774,7 +775,7 @@ s.maj_ticks.length = 0.04
 s.maj_ticks.label_font.set_size(0.06)
 s.label_radius = 0.23
 
-exporter.export(o, "/tmp/tank_clock.svg")
+exporter.export(o, "tank_clock.svg")
 
 """
 o = gauge.round_gauge.Object()
@@ -815,7 +816,7 @@ s.label_radius = 0.6
 s.font.set_size(0.05)
 s.maj_shift = (-0.05, -0.025)
 o.scales.append(s)
-exporter.export(o, "/tmp/4.svg")
+exporter.export(o, "4.svg")
 
 """
 o = gauge.round_gauge.Object()

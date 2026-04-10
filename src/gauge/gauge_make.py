@@ -27,10 +27,10 @@ def import_gauge_from_yaml(file_path: str) -> gauge.round_gauge.Object:
     fp.close()
 
     if data is None:
-        raise Exception("Not valid yaml file")
+        raise RuntimeError("Not valid yaml file")
 
     if "gauge" not in data:
-        raise Exception("No 'gauge' object")
+        raise ValueError("No 'gauge' object")
 
     gauge_o = data.get("gauge")
     if gauge_o is None:
@@ -70,10 +70,10 @@ def main() -> None:
     try:
         rg = import_gauge_from_yaml(args.gauge_file)
     except Exception as e:
-        logging.critical(f"Error: {e}")
-
-    exp = gauge.exporter.Object()
-    exp.export(rg, args.gauge_image)
+        logging.critical("Error: %s", str(e))
+    else:
+        exp = gauge.exporter.Object()
+        exp.export(rg, args.gauge_image)
 
 
 if __name__ == "__main__":

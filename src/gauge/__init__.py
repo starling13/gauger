@@ -105,14 +105,16 @@ class Font:
         """
         return self.__face
 
-    def set_face(self, new_val: FontFace) -> None:
+    @face.setter
+    def face(self, new_val: FontFace) -> None:
         self.__face = new_val
 
     @property
     def size(self) -> float:
         return self.__size
 
-    def set_size(self, new_val: float) -> None:
+    @size.setter
+    def size(self, new_val: float) -> None:
         self.__size = new_val
 
     def from_dict(self, data) -> None:
@@ -123,8 +125,7 @@ class Font:
         else:
             if not isinstance(face_o, str):
                 raise Exception(
-                    "The 'face' field in 'font' object is not  a string "
-                    "value"
+                    "The 'face' field in 'font' object is not  a string " "value"
                 )
             face = FontFace.NONE
             if face_o == "sans":
@@ -264,8 +265,7 @@ class Ticks:
         else:
             if not isinstance(length_o, float):
                 raise Exception(
-                    "The 'count' field in 'ticks' object is not real "
-                    "numeric value"
+                    "The 'count' field in 'ticks' object is not real " "numeric value"
                 )
             self.length = length_o
 

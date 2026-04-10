@@ -27,9 +27,7 @@ class Type(enum.Enum):
 class ScaleSector:
     def __init__(self) -> None:
         self.range: tuple[float, float] = (0.0, 0.0)
-        self.color: gauge.Color = gauge.Color.create_from_fixed(
-            gauge.FixedColor.CYAN
-        )
+        self.color: gauge.Color = gauge.Color.create_from_fixed(gauge.FixedColor.CYAN)
         self.radius_range: tuple[float, float] = (0.0, 0.0)
 
 
@@ -50,7 +48,7 @@ class Object:
         # Scale narrowing
         self.narrowing = math.nan
         # Range of the scale in measured units
-        self.range = (0.0, 1.0)
+        self.__range = (0.0, 1.0)
         # Minor ticks count
         self.min_ticks: list[gauge.Ticks] = []
         # Major ticks count
@@ -82,6 +80,16 @@ class Object:
     def set_type(self, new_val: Type) -> None:
         self.__type = new_val
 
+    @property
+    def range(self) -> tuple[float, float]:
+        return self.__range
+
+    @range.setter
+    def range(self, new_val: tuple[float, float]) -> None:
+        self.__range = new_val
+        self.maj_ticks.range = new_val
+        self.maj_ticks.label_range = new_val
+
     def add_minor_ticks(self, ticks: gauge.Ticks) -> None:
         self.min_ticks.append(ticks)
         ticks.range = self.range
@@ -101,7 +109,7 @@ class Object:
                     "The 'range' field in 'scale' object is not a "
                     "tuple of 2 real values"
                 )
-            self.set_range(range_o[0], range_o[1])
+            self.range = (range_o[0], range_o[1])
 
         # Radius property
         radius_o = data.get("radius")
@@ -109,9 +117,8 @@ class Object:
             logging.warning("No 'radius' field in 'scale' object")
         else:
             if not isinstance(radius_o, float):
-                raise Exception(
-                    "The 'radius' field in 'scale' object is not a "
-                    "real value"
+                raise ValueError(
+                    "The 'radius' field in 'scale' object is not a real value"
                 )
             self.radius = radius_o
 
@@ -122,8 +129,7 @@ class Object:
         else:
             if not isinstance(rot_o, float):
                 raise Exception(
-                    "The 'rotation' field in 'scale' object is not a "
-                    "real value"
+                    "The 'rotation' field in 'scale' object is not a " "real value"
                 )
             self.rotation = math.radians(rot_o)
 
@@ -152,8 +158,7 @@ class Object:
         else:
             if not isinstance(min_ticks_o, dict):
                 raise Exception(
-                    "The 'min_ticks' field in 'scale' object "
-                    "is not a dictionary"
+                    "The 'min_ticks' field in 'scale' object " "is not a dictionary"
                 )
             for k, v in min_ticks_o.items():
                 mt = gauge.Ticks()
@@ -169,11 +174,6 @@ class Object:
             label.from_dict(label_o)
             self.label = label
 
-    def set_range(self, min_val: float, max_val: float) -> None:
-        self.range = (min_val, max_val)
-        self.maj_ticks.range = (min_val, max_val)
-        self.maj_ticks.label_range = (min_val, max_val)
-
     def get_angle(self, val: float) -> float:
         # Clamp value to the scale range
         i_val: float = gauge.clamp(
@@ -185,9 +185,9 @@ class Object:
         norm_val: float = gauge.normalize(i_val, self.range[0], self.range[1])
         if self.type == Type.LOGARITHMIC:
             convexity = 9.0
-            new_val: float = math.log10(
-                1.0 + norm_val * convexity
-            ) / math.log10(1.0 + convexity)
+            new_val: float = math.log10(1.0 + norm_val * convexity) / math.log10(
+                1.0 + convexity
+            )
             norm_val = new_val
         norm_val *= self.span
 
