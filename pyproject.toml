@@ -6,7 +6,7 @@ authors = [
 ]
 description = "A set of library and scripts to make images of the round gauges with complex scales."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
@@ -15,7 +15,7 @@ license = "MIT"
 license-files = ["LICENSE"]
 
 dependencies = [
-    "pycairo >= 1.20.0",   # Add this line
+    "pycairo >= 1.20.0",
 ]
 
 [project.optional-dependencies]
