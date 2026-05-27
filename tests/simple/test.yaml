@@ -1,0 +1,9 @@
+gauge:
+  scales:
+    scale1:
+      range: [0.0, 10.0]
+      maj_ticks:
+        count: 10
+      min_ticks:
+        ticks1:
+          count: 1

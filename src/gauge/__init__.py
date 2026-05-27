@@ -125,8 +125,7 @@ class Font:
         else:
             if not isinstance(face_o, str):
                 raise Exception(
-                    "The 'face' field in 'font' object is not  a string "
-                    "value"
+                    "The 'face' field in 'font' object is not  a string " "value"
                 )
             face = FontFace.NONE
             if face_o == "sans":
@@ -267,8 +266,7 @@ class Ticks:
         else:
             if not isinstance(length_o, float):
                 raise Exception(
-                    "The 'count' field in 'ticks' object is not real "
-                    "numeric value"
+                    "The 'count' field in 'ticks' object is not real " "numeric value"
                 )
             self.length = length_o
 
