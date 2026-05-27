@@ -55,15 +55,10 @@ class Object:
                 context.save()
                 sec_begin = s.get_angle(val=sec.range[0])
                 sec_end = s.get_angle(val=sec.range[1])
-                print(math.degrees(sec_begin))
-                print(math.degrees(sec_end))
                 sec_span = sec_end - sec_begin
                 sb = sec_begin
                 sec_begin -= 2 * sb + sec_span
                 sec_end -= 2 * sb + sec_span
-                print(math.degrees(sec_begin))
-                print(math.degrees(sec_end))
-                print()
                 context.set_source_rgba(
                     sec.color.color[0],
                     sec.color.color[1],
@@ -162,6 +157,7 @@ class Object:
                 and s.maj_ticks.label_range[1] >= pos
             ):
                 context.save()
+                context.rotate(-s.maj_ticks.angle_shift)
                 r = s.label_radius
                 if not math.isnan(s.narrowing):
                     r -= s.narrowing * angle

@@ -105,14 +105,16 @@ class Font:
         """
         return self.__face
 
-    def set_face(self, new_val: FontFace) -> None:
+    @face.setter
+    def face(self, new_val: FontFace) -> None:
         self.__face = new_val
 
     @property
     def size(self) -> float:
         return self.__size
 
-    def set_size(self, new_val: float) -> None:
+    @size.setter
+    def size(self, new_val: float) -> None:
         self.__size = new_val
 
     def from_dict(self, data) -> None:
@@ -238,6 +240,7 @@ class Ticks:
         self.count = 1
         self.length = 0.1
         self.shift = 0.0
+        self.angle_shift = 0.0
         self.pen: Pen = Pen()
         self.range: tuple[float, float] = (0.0, 1.0)
         self.label_range: tuple[float, float] = (0.0, 1.0)

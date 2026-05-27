@@ -50,7 +50,7 @@ class Object:
         # Scale narrowing
         self.narrowing = math.nan
         # Range of the scale in measured units
-        self.range = (0.0, 1.0)
+        self.__range = (0.0, 1.0)
         # Minor ticks count
         self.min_ticks: list[gauge.Ticks] = []
         # Major ticks count
@@ -169,10 +169,15 @@ class Object:
             label.from_dict(label_o)
             self.label = label
 
-    def set_range(self, min_val: float, max_val: float) -> None:
-        self.range = (min_val, max_val)
-        self.maj_ticks.range = (min_val, max_val)
-        self.maj_ticks.label_range = (min_val, max_val)
+    @property
+    def range(self) -> tuple[float, float]:
+        return self.__range
+
+    @range.setter
+    def range(self, new_val: tuple[float, float]) -> None:
+        self.__range = new_val
+        self.maj_ticks.range = new_val
+        self.maj_ticks.label_range = new_val
 
     def get_angle(self, val: float) -> float:
         # Clamp value to the scale range
